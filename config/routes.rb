@@ -1,5 +1,6 @@
 TttRails::Application.routes.draw do
   match '/about', :to => 'pages#about'
+  match '/game', :to => 'pages#game'
   root :to => 'pages#game'
   # The priority is based upon order of creation:
   # first created -> highest priority.

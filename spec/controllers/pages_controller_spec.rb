@@ -4,6 +4,7 @@ describe PagesController do
   render_views
 
   describe "GET 'game'" do
+
     it "should be successful" do
       get 'game'
       response.should be_success
@@ -13,6 +14,30 @@ describe PagesController do
       get 'game'
       response.should have_selector("title", :content => "Gametime")
     end
+
+    it "should have a board" do
+      get 'game'
+      response.should have_selector("div", :name=> "boardContainer")
+    end
+  end
+
+  describe "POST 'game'" do
+
+    it "should be successful" do
+      post('game',{:board=>'[["a", "b", "c"],["d","e","f"],["d","e","f"]]'})
+      response.should have_selector("title", :content=> "Gametime")
+    end
+
+    it "should display the board that was sent" do
+      post('game',{:board=>'[["a", "b", "c"],["d","e","f"],["d","e","f"]]'})
+      response.should have_selector("div", :name=> "boardContainer") do |container|
+        'abcdefdef'.each do |letter|
+          container.should contain(letter)
+        end
+      end
+    end
+
+
   end
 
 
