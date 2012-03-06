@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
+
   def game
     @title="Gametime"
-    @stylesheets=["board.css"]
+    @stylesheets=[params[:action]]
   end
   def about
     @title="About"
