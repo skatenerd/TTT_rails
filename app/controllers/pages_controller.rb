@@ -3,16 +3,8 @@ class PagesController < ApplicationController
   def game
     @title="Gametime"
     @stylesheets=[params[:action]]
-    if params.has_key?(:board)
-      @board=eval(params[:board])
-    else
-      @board=[["*","*","*"],["*","*","*"],["*","*","*"]]
-    end
-    if params.has_key?(:player)
-      @player=params[:player]
-    else
-      @player="X"
-    end
+    @board=Board.get_board(params[:board])
+    @player=Board.get_player(params[:player])
   end
   def about
     @title="About"
