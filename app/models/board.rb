@@ -4,15 +4,49 @@ class Board
     @board=initial_board
   end
 
+
+  def updated(coordinate,value)
+    cloned=clone
+    cloned[coordinate[0]][coordinate[1]]=value
+    cloned
+  end
+
+  def clone
+    cloned=[]
+    @board.each do |row|
+      cloned<<row.clone
+    end
+    cloned
+  end
+
+  def future_boards(player)
+    boards=Hash.new()
+    @board.count.times do |row_index|
+      row=@board[row_index]
+      row.count.times do |col_index|
+        coordinate=[row_index,col_index]
+        boards[coordinate]=updated(coordinate,player)
+      end
+    end
+    boards
+
+  end
+
+
+
+
+
+
+
   def self.default_board
    [["*","*","*"],["*","*","*"],["*","*","*"]]
   end
 
-  def self.get_board(board)
-    if(board.nil?)
+  def self.board_from_string(board_string)
+    if(board_string.nil?)
       default_board
     else
-      eval(board)
+      Board.new(eval(board_string))
     end
   end
 

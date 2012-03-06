@@ -3,8 +3,11 @@ class PagesController < ApplicationController
   def game
     @title="Gametime"
     @stylesheets=[params[:action]]
-    @board=Board.get_board(params[:board])
+    board_object=Board.board_from_string(params[:board])
+    @board=board_object.board
     @player=Board.get_player(params[:player])
+    @future_boards=board_object.future_boards(@player)
+    puts @future_boards.inspect
   end
   def about
     @title="About"
