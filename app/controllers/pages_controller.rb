@@ -8,6 +8,11 @@ class PagesController < ApplicationController
     else
       @board=[["*","*","*"],["*","*","*"],["*","*","*"]]
     end
+    if params.has_key?(:player)
+      @player=params[:player]
+    else
+      @player="X"
+    end
   end
   def about
     @title="About"
