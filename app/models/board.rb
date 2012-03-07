@@ -1,5 +1,6 @@
 class Board
   attr_accessor :board
+  EmptyCharacter="*"
   def initialize(initial_board)
     @board=initial_board
   end
@@ -25,7 +26,9 @@ class Board
       row=@board[row_index]
       row.count.times do |col_index|
         coordinate=[row_index,col_index]
-        boards[coordinate]=updated(coordinate,player)
+        if(@board[row_index][col_index]==EmptyCharacter)
+          boards[coordinate]=updated(coordinate,player)
+        end
       end
     end
     boards
@@ -47,7 +50,9 @@ class Board
 
 
   def self.default_board
-   Board.new([["*","*","*"],["*","*","*"],["*","*","*"]])
+   Board.new([[EmptyCharacter,EmptyCharacter,EmptyCharacter],
+              [EmptyCharacter,EmptyCharacter,EmptyCharacter],
+              [EmptyCharacter,EmptyCharacter,EmptyCharacter]])
   end
 
   def self.board_from_string(board_string)
