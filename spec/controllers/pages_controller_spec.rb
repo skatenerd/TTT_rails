@@ -15,37 +15,42 @@ describe PagesController do
       response.should have_selector("title", :content => "Gametime")
     end
 
-    #it "should have a board" do
-      #get 'game'
-      #response.should have_selector("div", :name=> "boardContainer")
-    #end
+    it "should have a board" do
+      get 'game'
+      response.should have_selector("div", :name=> "boardContainer")
+    end
   end
+
+  describe "POST 'game'" do
+    before(:each) do
+      first_board=BoardRecord.new(:board=>"xx  o abc")
+      first_board.save
+      puts BoardRecord.all
+      puts BoardRecord.all.count
+    end
+
+    it "should be successful" do
+      post('game',{:board_id=>1})
+      response.should have_selector("title", :content=> "Gametime")
+    end
+    
+  
+   it "should display the board that was sent" do
+      post('game',{:board_id=>1})
+      response.should have_selector("div", :name=> "boardContainer") do |container|
+        container.should contain("o")
+        container.should contain("x")
+        container.should contain(" ")
+        container.should contain("a")
+        container.should contain("b")
+        container.should contain("c")
+      end
+    end
+
+end
 end
 
-  #describe "POST 'game'" do
-#
-    #it "should be successful" do
-      #post('game',{:board=>'[["a", "b", "c"],["d","e","f"],["d","e","f"]]'})
-      #response.should have_selector("title", :content=> "Gametime")
-    #end
-#
-    #it "should display the board that was sent" do
-      #post('game',{:board=>'[["a", "b", "c"],["d","e","f"],["d","e","f"]]'})
-      #response.should have_selector("div", :name=> "boardContainer") do |container|
-        ##'abcdefdef'.each do |letter|
-          ##container.should contain(letter)
-        ##end
-        #container.should contain("a")
-        #container.should contain("b")
-        #container.should contain("c")
-        #container.should contain("d")
-        #container.should contain("e")
-        #container.should contain("f")
-      #end
-    #end
-#
-#
-  #end
+
 #
 #
 #

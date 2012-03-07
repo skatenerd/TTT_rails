@@ -14,7 +14,7 @@
       if true
         %><%=
         #content_tag(:td,buildGameLink(text,updated_board,player),:name=>coordinates.to_s)
-        content_tag(:td,"ZINZINZIN")
+        content_tag(:td,visible_text(text))
         %><%
       else
         %><%=
