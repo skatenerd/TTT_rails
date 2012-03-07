@@ -1,20 +1,28 @@
-<%= "<table>".html_safe%>
-<%
+<%=
+"<table>".html_safe%>
+  <%
   row_index=0
   board.each do |row|
-    %><%= "<tr>".html_safe%><%
+    %><%=
+    "<tr>".html_safe
+    %><%
     col_index=0
     row.each do |text|
       coordinates=[row_index,col_index]
       updated_board=future_boards[coordinates]
-      %><%=content_tag(:td,buildGameLink(text,updated_board,player),:name=>coordinates.to_s)%>
-    <%
+      %><%=
+      content_tag(:td,buildGameLink(text,updated_board,player),:name=>coordinates.to_s)%>
+      <%
       col_index+=1
-    end%>
-    <%="</tr>".html_safe%><%
+    end
+    %><%=
+    "</tr>".html_safe
+    %><%
     row_index+=1
-  end%>
-<%="</table>".html_safe%>
+  end
+  %><%=
+"</table>".html_safe
+%>
       
       
 
