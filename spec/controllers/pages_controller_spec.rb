@@ -15,10 +15,10 @@ describe PagesController do
       response.should have_selector("title", :content => "Gametime")
     end
 
-    it "should have a board" do
-      get 'game'
-      response.should have_selector("div", :name=> "boardContainer")
-    end
+    #it "should have a board" do
+      #get 'game'
+      #response.should have_selector("div", :name=> "boardContainer")
+    #end
   end
 end
 

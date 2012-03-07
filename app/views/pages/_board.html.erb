@@ -9,11 +9,13 @@
     col_index=0
     row.each do |text|
       coordinates=[row_index,col_index]
-      updated_board=future_boards[coordinates]
-      if updated_board
+      #updated_board=future_boards[coordinates]
+      #if updated_board
+      if true
         %><%=
-        content_tag(:td,buildGameLink(text,updated_board,player),:name=>coordinates.to_s)%>
-        <%
+        #content_tag(:td,buildGameLink(text,updated_board,player),:name=>coordinates.to_s)
+        content_tag(:td,"ZINZINZIN")
+        %><%
       else
         %><%=
         content_tag(:td,text)

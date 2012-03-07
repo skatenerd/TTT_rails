@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "basics" do
   it "can create it with no arguments" do
-    board=Board.new()
+    board=Board.new(nil)
     board.should_not be_nil
     board.board_record.should_not be_nil
   end
@@ -15,7 +15,7 @@ describe "basics" do
   end
 
   it "has a board vector accessor" do
-    empty_board=Board.new()
+    empty_board=Board.new(nil)
     empty_board.board_vector.should_not be_nil
     empty_board.board_vector.should ==[[" "," "," "],[" "," "," "],[" "," "," "]]
 
@@ -25,7 +25,7 @@ describe "basics" do
 
   describe "board helper functions" do
     it "should add to a board" do
-      board=Board.new()
+      board=Board.new(nil)
       board.update([0,0],"z")
       board.board_vector[0][0].should =="z"
     end

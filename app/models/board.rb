@@ -2,7 +2,7 @@ require 'net/http'
 class Board
   attr_accessor :board_record
   EmptyCharacter="*"
-  def initialize(board_record=nil)
+  def initialize(board_record)
     if(board_record.nil?)
       @board_record=BoardRecord.new
       @board_record.save()
