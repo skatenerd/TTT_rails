@@ -39,7 +39,7 @@ class Board
 
 
   def self.default_board
-   [["*","*","*"],["*","*","*"],["*","*","*"]]
+    Board.new([["*","*","*"],["*","*","*"],["*","*","*"]])
   end
 
   def self.board_from_string(board_string)

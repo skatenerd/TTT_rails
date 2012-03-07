@@ -7,7 +7,6 @@ class PagesController < ApplicationController
     @board=board_object.board
     @player=Board.get_player(params[:player])
     @future_boards=board_object.future_boards(@player)
-    puts @future_boards.inspect
   end
   def about
     @title="About"
