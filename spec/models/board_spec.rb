@@ -8,18 +8,35 @@ require 'spec_helper'
       assert_equal(99,updated[0][0])
     end
 
-    it "knows future boards" do
-      board_data=[["X","O","O"],["X","O",nil],["X","O","O"]]
+    it "no boards for guaranteed tie" do
+      board_data=[["X","O","O"],["X","O","*"],["X","O","O"]]
       board=Board.new(board_data)
-      future_boards=board.future_boards("O")
-      assert_equal(1,future_boards.count)
-      assert_equal([["X","O","O"],["X","O","O"],["X","O","O"]],future_boards[[1,2]])
+      future_boards=board.future_boards("X")
+      assert_equal(0,future_boards.count)
     end
 
-    #it "stringifies boards" do
-      #board_data=[["X","O","O"],["X","O",nil],["X","O","O"]]
-      #board=Board.new(board_data)
-      #assertEqual(
-    #end
+    it "knows future boards" do
+      board_data=[["X","*","*"],["*","O","*"],["*","*","*"]]
+      result_data=[["X","X","O"],["*","O","*"],["*","*","*"]]
+      board=Board.new(board_data)
+      future_boards=board.future_boards("X")
+      assert_equal(result_data,future_boards[[0,1]])
+    end
+
+    it "builds postdata" do
+      board_data=[["X","*","*"],["*","O","*"],["*","*","*"]]
+      assert_equal("x   o    ",Board.postdata_string(board_data).downcase)
+    end
+
+    it "clones boards" do
+
+    end
+
+    it "gets the cpu move" do
+      board_data=[["X","X","*"],["*","O","*"],["*","*","*"]]
+      board=Board.new(board_data)
+      assert_equal([0,2],board.get_cpu_move("O"))
+    end
+
   end
 

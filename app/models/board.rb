@@ -29,7 +29,7 @@ class Board
         coordinate=[row_index,col_index]
         if(@board[row_index][col_index]==EmptyCharacter)
           after_human_move=Board.new(updated(coordinate,player))
-          cpu_move=get_cpu_move(after_human_move.board,Board.other_player(player))
+          cpu_move=after_human_move.get_cpu_move(Board.other_player(player))
           if cpu_move
             after_cpu_move=Board.new(after_human_move.updated(cpu_move,Board.other_player(player)))
             boards[coordinate]=after_cpu_move.board
@@ -40,7 +40,6 @@ class Board
       end
     end
     boards
-
   end
 
   def self.postdata_string(board)
@@ -48,8 +47,8 @@ class Board
     flattened_string.gsub(EmptyCharacter," ")    
   end
 
-  def get_cpu_move(board,player)
-    board_string=Board.postdata_string(board)
+  def get_cpu_move(player)
+    board_string=Board.postdata_string(@board)
     postdata=("board="+board_string+"&player="+player).downcase
     http=Net::HTTP.new("localhost",8080)
     resp,respdata=http.post("/ttt/cpumove",postdata)
