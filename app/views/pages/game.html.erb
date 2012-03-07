@@ -1,4 +1,4 @@
 <p>Click on squares to make move selections</p>
 <div name="boardContainer">
-<%= render :partial => "board", :object => @board, :locals=>{:player=>@player, :future_boards=>@future_boards} %>
+<%= render :partial => "board", :object => @board, :locals=>{:player=>@next_player, :future_boards=>@future_boards} %>
 </div>

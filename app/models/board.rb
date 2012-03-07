@@ -34,12 +34,20 @@ class Board
 
 
 
+  def self.other_player(player)
+    if player.upcase=="O"
+      "X"
+    elsif player.upcase=="X"
+      "O"
+    end
+  end
+
 
 
 
 
   def self.default_board
-    Board.new([["*","*","*"],["*","*","*"],["*","*","*"]])
+   Board.new([["*","*","*"],["*","*","*"],["*","*","*"]])
   end
 
   def self.board_from_string(board_string)
