@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     @stylesheets=[params[:action]]
     board_object=Board.board_from_string(params[:board])
     @board=board_object.board
-    @next_player=Board.other_player(Board.get_player(params[:player]))
+    @next_player=Board.get_player(params[:player])
     @future_boards=board_object.future_boards(Board.get_player(params[:player]))
 
   end

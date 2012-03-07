@@ -33,8 +33,8 @@ class Board
           if cpu_move
             after_cpu_move=Board.new(after_human_move.updated(cpu_move,Board.other_player(player)))
             boards[coordinate]=after_cpu_move.board
-          else
-            boards[coordinate]=after_human_move.board
+          #else
+            #boards[coordinate]=after_human_move.board
           end
         end
       end
@@ -43,13 +43,13 @@ class Board
 
   end
 
-  def postdata_string
-    flattened_string=@board.flatten.to_s
+  def self.postdata_string(board)
+    flattened_string=board.flatten.to_s
     flattened_string.gsub(EmptyCharacter," ")    
   end
 
   def get_cpu_move(board,player)
-    board_string=postdata_string
+    board_string=Board.postdata_string(board)
     postdata=("board="+board_string+"&player="+player).downcase
     http=Net::HTTP.new("localhost",8080)
     resp,respdata=http.post("/ttt/cpumove",postdata)
