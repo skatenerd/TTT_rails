@@ -1,3 +1,4 @@
+require 'net/http'
 class Board
   attr_accessor :board
   EmptyCharacter="*"
@@ -27,12 +28,37 @@ class Board
       row.count.times do |col_index|
         coordinate=[row_index,col_index]
         if(@board[row_index][col_index]==EmptyCharacter)
-          boards[coordinate]=updated(coordinate,player)
+          after_human_move=Board.new(updated(coordinate,player))
+          cpu_move=get_cpu_move(after_human_move.board,Board.other_player(player))
+          if cpu_move
+            after_cpu_move=Board.new(after_human_move.updated(cpu_move,Board.other_player(player)))
+            boards[coordinate]=after_cpu_move.board
+          else
+            boards[coordinate]=after_human_move.board
+          end
         end
       end
     end
     boards
 
+  end
+
+  def postdata_string
+    flattened_string=@board.flatten.to_s
+    flattened_string.gsub(EmptyCharacter," ")    
+  end
+
+  def get_cpu_move(board,player)
+    board_string=postdata_string
+    postdata=("board="+board_string+"&player="+player).downcase
+    http=Net::HTTP.new("localhost",8080)
+    resp,respdata=http.post("/ttt/cpumove",postdata)
+    move=nil
+    if(respdata.length>0)
+      move=respdata[-2,2].split("")
+      move=move.map{|x|Integer(x)}
+    end
+    return move 
   end
 
 
