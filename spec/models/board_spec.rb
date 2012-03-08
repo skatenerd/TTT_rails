@@ -63,7 +63,6 @@ describe "basics" do
   end
 
 
-
 end
 #
     #it "no boards for guaranteed tie" do
