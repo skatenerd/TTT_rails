@@ -58,6 +58,8 @@ class Board
     respdata=make_ttt_request(postdata,"/ttt/winner")
     if respdata.length==1
       winner=respdata
+    elsif board_string.gsub(" ","").length==9
+      winner="TIE"
     end
   end
 

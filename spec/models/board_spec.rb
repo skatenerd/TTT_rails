@@ -43,6 +43,9 @@ describe "basics" do
     in_progress_board=[["x","o","o"],[" ","x"," "],[" "," "," "]]
     Board.get_winner(in_progress_board).should ==nil
 
+    tie_board=[["x","o","o"],["o","x","x"],["x","o","o"]]
+    Board.get_winner(tie_board).should =="TIE"
+
   end
 
   it "updates for round of human and cpu move" do
