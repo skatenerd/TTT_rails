@@ -25,8 +25,8 @@ describe PagesController do
     before(:each) do
       first_board=BoardRecord.new(:board=>"xx  o abc")
       first_board.save
-      puts BoardRecord.all
-      puts BoardRecord.all.count
+      second_board=BoardRecord.new(:board=>"x  oxo   ")
+      second_board.save
     end
 
     it "should be successful" do
@@ -47,7 +47,13 @@ describe PagesController do
       end
     end
 
-end
+    it "displays victory message when gets a terminated game" do
+      post('game',{:board_id=>2,:coordinates=>22})
+      response.should have_selector("div",:name=>"winner")
+      response.should_not contain('a href="/game?board_id=2&amp;coordinates=')
+    end
+
+  end
 end
 
 

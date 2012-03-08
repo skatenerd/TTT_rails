@@ -1,7 +1,13 @@
 <p>Click on squares to make move selections</p>
 <div name="boardContainer">
-<%= render :partial => "board", :object => @board%>
-<%
-#<:locals=>{:player=>@next_player, :future_boards=>@future_boards} 
-%>
+<%= render :partial => "board", :object => @board, :locals=>{:board_id =>@board_id}%>
 </div>
+<%
+if @winner
+puts @winner
+%><%=
+render :partial => "winner", :object => @winner
+%><%
+end
+%>
+

@@ -23,13 +23,43 @@ describe "basics" do
     board.board_vector.should ==[["x","x"," "],[" ","o"," "],[" "," "," "]]
   end 
 
-  describe "board helper functions" do
-    it "should add to a board" do
-      board=Board.new(nil)
-      board.update([0,0],"z")
-      board.board_vector[0][0].should =="z"
-    end
+  it "should add to a board" do
+    board=Board.new(nil)
+    board.update([0,0],"z")
+    board.board_vector[0][0].should =="z"
   end
+
+  it "gets the cpu move" do
+    #board_record=BoardRecord.new(:board =>"xx  o    ")
+    #board=Board.new(board_record)
+    board=[["x","x"," "],[" ","o"," "],[" "," "," "]]
+    assert_equal([0,2],Board.get_cpu_move(board,"o"))
+  end
+
+  it "gets the winner" do
+    won_board=[["x","o","o"],[" ","x"," "],[" "," ","x"]]
+    Board.get_winner(won_board).should =="x"
+
+    in_progress_board=[["x","o","o"],[" ","x"," "],[" "," "," "]]
+    Board.get_winner(in_progress_board).should ==nil
+
+  end
+
+  it "updates for round of human and cpu move" do
+    board_record=BoardRecord.new(:board =>"x   o    ")
+    board=Board.new(board_record)
+    board.update_for_human_cpu_round([0,1])
+    board.board_vector.should ==[["x","x","o"],[" ","o"," "],[" "," "," "]]
+  end
+
+  it "updates when the cpu doesn't want to move" do
+    board_record=BoardRecord.new(:board =>"xx oo    ")
+    board=Board.new(board_record)
+    board.update_for_human_cpu_round([0,2])
+    board.board_vector.should ==[["x","x","x"],["o","o"," "],[" "," "," "]]
+  end
+
+
 
 end
 #
@@ -57,10 +87,5 @@ end
 #
     #end
 #
-    #it "gets the cpu move" do
-      #board_data=[["X","X","*"],["*","O","*"],["*","*","*"]]
-      #board=Board.new(board_data)
-      #assert_equal([0,2],board.get_cpu_move("O"))
-    #end
   #end
 
