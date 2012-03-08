@@ -50,14 +50,12 @@ describe PagesController do
     it "displays victory message when gets a terminated game" do
       post('game',{:board_id=>2,:coordinates=>22})
       response.should have_selector("div",:name=>"winner")
-      puts response.body
       response.body.should_not include('a href="/game?board_id=2&amp;coordinates=')
     end
 
     it "does not display links for occupied squares" do
       post('game',{:board_id=>2,:coordinates=>22})
       response.should have_selector("div",:name=>"winner")
-      puts response.body
       response.body.should_not include('a href="/game?board_id=2&amp;coordinates=00')
     end
   end

@@ -22,7 +22,7 @@ class PagesController < ApplicationController
       board_object.update_for_human_cpu_round(coordinates)
     end
     @board=board_object.board_vector
-    @winner=Board.get_winner(board_object.board_vector)
+    @winner=board_object.get_winner()
 
   end
   def about
