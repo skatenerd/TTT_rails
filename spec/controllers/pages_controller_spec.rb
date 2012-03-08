@@ -27,14 +27,15 @@ describe PagesController do
       first_board.save
       second_board=BoardRecord.new(:board=>"x  oxo   ")
       second_board.save
+      game_record=GameRecord.new()
+      game_record.save
+      game_record.move_records.create(:row=>0,:col=>0,:player=>"x")
     end
 
     it "should add a move association to the current game" do
       #bebimbap = BoardRecord.new(:row=>0,:col=>0,:player=>"x")
-      game_record=GameRecord.new()
-      game_record.save
-      game_record.move_records.create(:row=>0,:col=>0,:player=>"x")
       post('game',{:board_id=>2,:game_id=>1,:coordinates=>22})
+      game_record=GameRecord.find(1)
       game_record.move_records.count.should ==2
       
       
