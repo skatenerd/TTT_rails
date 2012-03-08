@@ -29,6 +29,19 @@ describe PagesController do
       second_board.save
     end
 
+    it "should add a move association to the current game" do
+      #bebimbap = BoardRecord.new(:row=>0,:col=>0,:player=>"x")
+      game_record=GameRecord.new()
+      game_record.save
+      game_record.move_records.create(:row=>0,:col=>0,:player=>"x")
+      post('game',{:board_id=>2,:game_id=>1,:coordinates=>22})
+      game_record.move_records.count.should ==2
+      
+      
+
+
+    end
+
     it "should be successful" do
       post('game',{:board_id=>1})
       response.should have_selector("title", :content=> "Gametime")
