@@ -10,7 +10,7 @@ module BoardHelper
   end
 
   def empty_square(text)
-    text==" "
+    text.nil?
   end
     
 

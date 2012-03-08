@@ -10,10 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307200455) do
+ActiveRecord::Schema.define(:version => 20120308194816) do
 
   create_table "board_records", :force => true do |t|
     t.string   "board"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "boards", :force => true do |t|
+    t.string   "contents"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "move_records", :force => true do |t|
+    t.integer  "row"
+    t.integer  "col"
+    t.string   "player"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
