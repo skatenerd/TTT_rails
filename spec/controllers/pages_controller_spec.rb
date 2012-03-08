@@ -27,34 +27,31 @@ describe PagesController do
       game_record.save
       game_record.move_records.create(:row=>0,:col=>0,:player=>"x")
     end
+
+    it "should be successful" do
+      post('game',{:board_id=>1})
+      response.should have_selector("title", :content=> "Gametime")
+    end
     
     it "should add a move association to the current game" do
-      post('game',{:game_id=>1,:coordinates=>22})
+      post('game',{:game_id=>1,:coordinates=>22,:player=>"o"})
       game_record=GameRecord.find(1)
       game_record.move_records.count.should ==2
+      game_record.move_records.last.player.should =="o"
+    end
+   
+    it "should display the board that was sent" do
+      post('game',{:game_id=>1,:coordinates=>22,:player=>"o"})
+      response.should have_selector("div", :name=> "boardContainer") do |container|
+        container.should contain("x")
+        container.should contain("o")
+      end
     end
 
   end
 
 end
 
-    #it "should be successful" do
-      #post('game',{:board_id=>1})
-      #response.should have_selector("title", :content=> "Gametime")
-    #end
-    #
-  #
-   #it "should display the board that was sent" do
-      #post('game',{:board_id=>1})
-      #response.should have_selector("div", :name=> "boardContainer") do |container|
-        #container.should contain("o")
-        #container.should contain("x")
-        #container.should contain(" ")
-        #container.should contain("a")
-        #container.should contain("b")
-        #container.should contain("c")
-      #end
-    #end
 #
     #it "displays victory message when gets a terminated game" do
       #post('game',{:board_id=>2,:coordinates=>22})

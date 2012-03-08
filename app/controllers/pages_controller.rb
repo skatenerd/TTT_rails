@@ -8,14 +8,18 @@ class PagesController < ApplicationController
 
     game_id_param=params[:game_id]
 
+    player_param=params[:player]
+    player_param||="x"
+
     game=Game.new(game_id_param)
 
     coordinates_param=params[:coordinates]
     if coordinates_param and coordinates_param.length==2
       coordinates=coordinates_param.split("").map{|x|Integer(x)}
-        game.add_move(coordinates[0],coordinates[1],"x")
+        game.add_move(coordinates[0],coordinates[1],player_param)
     end
-    #@board=board_object.board_vector
+    @board=game.board_vector
+    @game_id=game.id
     #@winner=board_object.get_winner()
 
   end

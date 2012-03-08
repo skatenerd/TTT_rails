@@ -1,7 +1,7 @@
 <p>Click on squares to make move selections</p>
 <div name="boardContainer">
 <%=
-# render :partial => "board", :object => @board, :locals=>{:board_id =>@board_id,:winner=>@winner}
+render :partial => "board", :object => @board, :locals=>{:game_id =>@game_id}#,:winner=>@winner}
 %>
 </div>
 <%

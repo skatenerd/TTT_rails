@@ -15,6 +15,10 @@ class Game
     @game_record.move_records
   end
 
+  def id
+    @game_record.id
+  end
+
   def add_move(row,col,player)
     @game_record.move_records.create(:row=>row,:col=>col,:player=>player)
   end
