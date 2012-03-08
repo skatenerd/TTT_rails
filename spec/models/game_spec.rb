@@ -1,15 +1,16 @@
 describe "basics" do
 
   it "can create it with no arguments" do
-    game=Game.new(nil)
+    game=Game.new()
     game.should_not be_nil
     game.game_record.should_not be_nil
   end
 
-  it "can create it with a gamerecord" do
+  it "can create it with a gamerecord id" do
     game_record=GameRecord.new()
-    game=Game.new(game_record)
-    game.game_record.should equal game_record
+    game_record.save()
+    game=Game.new(game_record.id)
+    game.game_record.should == game_record
   end
 
   it "can view associated moves" do
@@ -23,6 +24,7 @@ describe "basics" do
 
   it "can add a move to a game" do
     game_record=GameRecord.new()
+    game_record.save()
     game=Game.new(game_record)
     game.add_move(0,0,:x)
     game.move_records.count.should ==1
@@ -30,18 +32,18 @@ describe "basics" do
   end
 
   it "has a board vector accessor" do
-    empty_game=Game.new(nil)
+    empty_game=Game.new()
     empty_game.board_vector.should ==[[nil,nil,nil],[nil,nil,nil],[nil,nil,nil]]
 
   end 
 
   it "can access board vector based on moves made" do
 
-    game=Game.new(nil)
+    game=Game.new()
     game.add_move(0,0,:x)
     game.add_move(0,1,:x)
     game.add_move(1,1,:o)
-    board.board_vector.should ==[[:x,:x,nil],[nil,:o,nil],[nil,nil,nil]]
+    game.board_vector.should ==[[:x,:x,nil],[nil,:o,nil],[nil,nil,nil]]
   end
 
 end
