@@ -9,7 +9,6 @@ class PagesController < ApplicationController
     game_id_param=params[:game_id]
 
     player_param=params[:player]
-    player_param||="x"
 
     game=Game.new(game_id_param)
 
@@ -20,6 +19,11 @@ class PagesController < ApplicationController
     end
     @board=game.board_vector
     @game_id=game.id
+    if player_param
+      @player=Game.other_player(player_param)
+    else
+      @player="x"
+    end
     #@winner=board_object.get_winner()
 
   end

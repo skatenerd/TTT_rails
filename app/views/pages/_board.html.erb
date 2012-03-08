@@ -10,7 +10,7 @@
     row.each do |text|
       coordinates=[row_index,col_index]
       %><%=
-      content_tag(:td,build_td(text,coordinates,game_id))#,winner))
+      content_tag(:td,build_td(text,coordinates,game_id,player))#,winner))
       %><%
       col_index+=1
     end

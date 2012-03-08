@@ -23,6 +23,14 @@ class Game
     @game_record.move_records.create(:row=>row,:col=>col,:player=>player)
   end
 
+  def self.other_player(player_string)
+    if player_string.downcase=="x"
+      "o"
+    elsif player_string.downcase=="o"
+      "x"
+    end
+  end
+
   def board_vector
     board=Board.new()
     move_records.each do |move_record|
