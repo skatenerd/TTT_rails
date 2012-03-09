@@ -65,9 +65,9 @@ describe PagesController do
     it "displays victory message when gets a terminated game" do
       Board.any_instance.stub(:get_winner).and_return("X")
 
-      post('game',{:game_id=>1,:coordinates=>"02",:player=>"o"})
+      post('game',{:game_id=>1,:coordinates=>"02",:player=>"x"})
       response.should have_selector("div",:name=>"winner")
-      response.body.should_not include('a href="/game?board_id=2&amp;coordinates=')
+      response.body.should_not include('href="/game?')
     end
 
   end

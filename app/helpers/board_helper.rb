@@ -1,7 +1,7 @@
 module BoardHelper
 
-  def build_td(text,coordinates,game_id,player)#,winner)
-    if empty_square(text)# and (not winner)
+  def build_td(text,coordinates,game_id,player,winner)
+    if empty_square(text) and (not winner)
       url=Rails.application.routes.url_helpers.game_path(:coordinates=> coordinates.to_s, :game_id=>game_id.to_s, :player=>player)
       link_to("*",url,:method=>:post).html_safe
     else
