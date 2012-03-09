@@ -3,6 +3,19 @@ require 'spec_helper'
 describe PagesController do
   render_views
 
+  describe "GET 'menu'" do
+    it "should be successful" do
+      get 'menu'
+      response.should be_success
+    end
+
+    it "should display difficulty menu" do
+      get 'menu'
+      response.should have_selector("div", :name=> "newGame")
+      response.body.should include "Unbeatable"
+    end
+  end
+
   describe "GET 'game'" do
 
     it "should be successful" do

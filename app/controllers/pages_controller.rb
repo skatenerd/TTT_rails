@@ -6,7 +6,6 @@ class PagesController < ApplicationController
     game_id_param=params[:game_id]
     player_param=params[:player]
     coordinates_param=params[:coordinates]
-
     
     board_object=Board.new()
     game=Game.new(game_id_param)
@@ -21,6 +20,12 @@ class PagesController < ApplicationController
     @winner=game.board_object.get_winner()
     @stylesheets=[action_param]
     @title="Gametime"
+
+  end
+
+  def menu
+    @title="Main Menu"
+    @stylesheets=[]
 
   end
 
