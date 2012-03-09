@@ -33,11 +33,11 @@ describe PagesController do
       response.should have_selector("title", :content=> "Gametime")
     end
     
-    it "should add a move association to the current game" do
+    it "should add a round to the current game" do
       post('game',{:game_id=>1,:coordinates=>22,:player=>"o"})
       game_record=GameRecord.find(1)
-      game_record.move_records.count.should ==2
-      game_record.move_records.last.player.should =="o"
+      game_record.move_records.count.should ==3
+      game_record.move_records.last.player.should =="x"
     end
    
     it "should display the board that was sent" do

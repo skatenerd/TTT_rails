@@ -16,12 +16,13 @@ class PagesController < ApplicationController
     if coordinates_param and coordinates_param.length==2
       coordinates=coordinates_param.split("").map{|x|Integer(x)}
         #game.add_move(coordinates[0],coordinates[1],player_param)
-        game.update_for_human_cpu_round(coordinates[0],coordinates[1],player_param)
+        game.update_for_human_cpu_round(coordinates[0],coordinates[1],player_param.intern)
     end
     @board=game.board_vector
     @game_id=game.id
     if player_param
-      @player=Game.other_player(player_param.intern).to_s
+      #@player=Game.other_player(player_param.intern).to_s
+      @player=player_param
     else
       @player="x"
     end
