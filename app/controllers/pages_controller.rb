@@ -20,7 +20,7 @@ class PagesController < ApplicationController
     @board=game.board_vector
     @game_id=game.id
     if player_param
-      @player=Game.other_player(player_param)
+      @player=Game.other_player(player_param.intern).to_s
     else
       @player="x"
     end

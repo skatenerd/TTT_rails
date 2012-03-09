@@ -38,12 +38,19 @@ describe "basics" do
   end 
 
   it "can access board vector based on moves made" do
-
     game=Game.new()
     game.add_move(0,0,:x)
     game.add_move(0,1,:x)
     game.add_move(1,1,:o)
     game.board_vector.should ==[[:x,:x,nil],[nil,:o,nil],[nil,nil,nil]]
+  end
+
+  it "updates for round of human and cpu move" do
+    game=Game.new()
+    game.add_move(0,0,:x)
+    game.add_move(1,1,:o)
+    game.update_for_human_cpu_round(0,1,:x)
+    game.board_vector.should ==[[:x,:x,:o],[nil,:o,nil],[nil,nil,nil]]
   end
 
 end

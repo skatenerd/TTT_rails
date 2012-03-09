@@ -23,21 +23,33 @@ class Game
     @game_record.move_records.create(:row=>row,:col=>col,:player=>player)
   end
 
-  def self.other_player(player_string)
-    if player_string.downcase=="x"
-      "o"
-    elsif player_string.downcase=="o"
-      "x"
+  def self.other_player(player)
+    if player==:x
+      :o
+    elsif player==:o
+      :x
     end
   end
 
-  def board_vector
+  def board_object
     board=Board.new()
     move_records.each do |move_record|
       board.update([move_record.row,move_record.col],move_record.player.intern)
     end
-    board.board_vector
+    board
   end
 
+  def board_vector
+    board_object.board_vector
+  end
+
+  def update_for_human_cpu_round(row,col,player)
+    add_move(row,col,player.to_s)
+    other_player=Game.other_player(player)
+    cpu_move=board_object.get_cpu_move(other_player)
+    if cpu_move
+      add_move(cpu_move[0],cpu_move[1],other_player.to_s)
+    end
+  end
 
 end

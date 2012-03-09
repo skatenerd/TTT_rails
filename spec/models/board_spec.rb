@@ -20,13 +20,14 @@ describe "basics" do
     board.board_vector[0][0].should ==:z
     board.board_vector.flatten.count.should ==9
   end
+
+  it "gets the cpu move" do
+    board=Board.new()
+    board.board_vector=[[:x,:x,nil],[nil,:o,nil],[nil,nil,nil]]
+    assert_equal([0,2],board.get_cpu_move("o"))
+  end
 end
 
-  #it "gets the cpu move" do
-    #board_record=BoardRecord.new(:board =>"xx  o    ")
-    #board=Board.new(board_record)
-    #assert_equal([0,2],board.get_cpu_move("o"))
-  #end
 #
   #it "gets the winner" do
     #won_board_record=BoardRecord.new(:board=>"xoo x   x")
@@ -43,12 +44,6 @@ end
 #
   #end
 #
-  #it "updates for round of human and cpu move" do
-    #board_record=BoardRecord.new(:board =>"x   o    ")
-    #board=Board.new(board_record)
-    #board.update_for_human_cpu_round([0,1])
-    #board.board_vector.should ==[[:x,:x,:o],[nil,:o,nil],[nil,nil,nil]]
-  #end
 #
   #it "updates when the cpu doesn't want to move" do
     #board_record=BoardRecord.new(:board =>"xx oo    ")

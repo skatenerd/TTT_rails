@@ -48,6 +48,12 @@ describe PagesController do
       end
     end
 
+    it "does not display links for occupied squares" do
+      post('game',{:game_id=>1,:coordinates=>22,:player=>"o"})
+      response.body.should_not include('a href="/game?board_id=2&amp;coordinates=00')
+      response.body.should_not include('a href="/game?board_id=2&amp;coordinates=22')
+    end
+
   end
 
 end
@@ -59,20 +65,5 @@ end
       #response.body.should_not include('a href="/game?board_id=2&amp;coordinates=')
     #end
 #
-    #it "does not display links for occupied squares" do
-      #post('game',{:board_id=>2,:coordinates=>22})
-      #response.should have_selector("div",:name=>"winner")
-      #response.body.should_not include('a href="/game?board_id=2&amp;coordinates=00')
-    #end
-  #end
-#end
-#
-#
-#
-  #describe "GET 'about'" do
-    #it "should be successful" do
-      #get 'about'
-      #response.should be_success
-    #end
   #end
 #end
