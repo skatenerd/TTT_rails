@@ -15,7 +15,8 @@ class PagesController < ApplicationController
     coordinates_param=params[:coordinates]
     if coordinates_param and coordinates_param.length==2
       coordinates=coordinates_param.split("").map{|x|Integer(x)}
-        game.add_move(coordinates[0],coordinates[1],player_param)
+        #game.add_move(coordinates[0],coordinates[1],player_param)
+        game.update_for_human_cpu_round(coordinates[0],coordinates[1],player_param)
     end
     @board=game.board_vector
     @game_id=game.id
