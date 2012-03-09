@@ -43,12 +43,16 @@ class Game
     board_object.board_vector
   end
 
-  def update_for_human_cpu_round(row,col,player)
-    add_move(row,col,player.to_s)
-    other_player=Game.other_player(player)
-    cpu_move=board_object.get_cpu_move(other_player)
-    if cpu_move
-      add_move(cpu_move[0],cpu_move[1],other_player.to_s)
+  def update_for_human_cpu_round(coordinates,player)
+    if coordinates and coordinates.length==2
+      row=coordinates[0]
+      col=coordinates[1]
+      add_move(row,col,player.to_s)
+      other_player=Game.other_player(player)
+      cpu_move=board_object.get_cpu_move(other_player)
+      if cpu_move
+        add_move(cpu_move[0],cpu_move[1],other_player.to_s)
+      end
     end
   end
 

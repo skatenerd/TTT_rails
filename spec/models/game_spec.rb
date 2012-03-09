@@ -49,7 +49,7 @@ describe "basics" do
     game=Game.new()
     game.add_move(0,0,:x)
     game.add_move(1,1,:o)
-    game.update_for_human_cpu_round(0,1,:x)
+    game.update_for_human_cpu_round([0,1],:x)
     game.board_vector.should ==[[:x,:x,:o],[nil,:o,nil],[nil,nil,nil]]
   end
 
