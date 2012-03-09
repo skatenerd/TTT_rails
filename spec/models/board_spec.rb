@@ -24,7 +24,7 @@ describe "basics" do
   it "gets the cpu move" do
     board=Board.new()
     board.board_vector=[[:x,:x,nil],[nil,:o,nil],[nil,nil,nil]]
-    board.get_cpu_move("o").should ==[0,2]
+    board.get_cpu_move("o",nil).should ==[0,2]
   end
 
   it "gets the winner" do

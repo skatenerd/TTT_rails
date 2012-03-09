@@ -25,8 +25,11 @@ class Board
     respdata
   end
 
-  def get_cpu_move(player)
+  def get_cpu_move(player,maxdepth)
     postdata=("board="+board_string+"&player="+player.to_s).downcase
+    if maxdepth
+      postdata+="&maxdepth="+maxdepth.to_s.downcase
+    end
     respdata=make_ttt_request(postdata,"/ttt/cpumove")
     move=nil
     if(respdata.length>0)

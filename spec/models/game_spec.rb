@@ -1,7 +1,7 @@
 describe "basics" do
 
   it "can create it with no arguments" do
-    game=Game.new()
+    game=Game.new(nil,nil)
     game.should_not be_nil
     game.game_record.should_not be_nil
   end
@@ -9,7 +9,7 @@ describe "basics" do
   it "can create it with a gamerecord id" do
     game_record=GameRecord.new()
     game_record.save()
-    game=Game.new(game_record.id)
+    game=Game.new(game_record.id,nil)
     game.game_record.should == game_record
   end
 
@@ -17,7 +17,7 @@ describe "basics" do
     game_record=GameRecord.new()
     game_record.save
     game_record.move_records.create(:row=>0,:col=>0,:player=>"x")
-    game=Game.new(game_record)
+    game=Game.new(game_record,nil)
     game.move_records.count.should ==1
     game.move_records[0].row.should ==0
   end
@@ -25,20 +25,20 @@ describe "basics" do
   it "can add a move to a game" do
     game_record=GameRecord.new()
     game_record.save()
-    game=Game.new(game_record)
+    game=Game.new(game_record,nil)
     game.add_move(0,0,:x)
     game.move_records.count.should ==1
     game.move_records.all[0].player.should =="x"
   end
 
   it "has a board vector accessor" do
-    empty_game=Game.new()
+    empty_game=Game.new(nil,nil)
     empty_game.board_vector.should ==[[nil,nil,nil],[nil,nil,nil],[nil,nil,nil]]
 
   end 
 
   it "can access board vector based on moves made" do
-    game=Game.new()
+    game=Game.new(nil,nil)
     game.add_move(0,0,:x)
     game.add_move(0,1,:x)
     game.add_move(1,1,:o)
@@ -46,7 +46,7 @@ describe "basics" do
   end
 
   it "updates for round of human and cpu move" do
-    game=Game.new()
+    game=Game.new(nil,nil)
     game.add_move(0,0,:x)
     game.add_move(1,1,:o)
     game.update_for_human_cpu_round([0,1],:x)

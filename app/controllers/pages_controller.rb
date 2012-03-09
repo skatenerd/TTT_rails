@@ -6,9 +6,10 @@ class PagesController < ApplicationController
     game_id_param=params[:game_id]
     player_param=params[:player]
     coordinates_param=params[:coordinates]
+    difficulty_param=params[:difficulty]
     
     board_object=Board.new()
-    game=Game.new(game_id_param)
+    game=Game.new(game_id_param,extract_difficulty(difficulty_param))
     coordinates=extract_coordinates(coordinates_param)
     player=extract_player(player_param)
     game.update_for_human_cpu_round(coordinates,player.intern)
@@ -27,6 +28,12 @@ class PagesController < ApplicationController
     @title="Main Menu"
     @stylesheets=[]
 
+  end
+
+  def extract_difficulty(difficulty_param)
+    if difficulty_param
+      difficulty_param.intern
+    end
   end
 
   def extract_coordinates(coordinates_param)

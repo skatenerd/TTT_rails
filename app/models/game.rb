@@ -2,12 +2,19 @@ require 'net/http'
 class Game
   attr_accessor :game_record
 
-  def initialize(game_record_id=nil)
+  def initialize(game_record_id,difficulty)
+    maxdepth=get_maxdepth difficulty
     if game_record_id
       @game_record=GameRecord.find(game_record_id)
     else
-      @game_record||=GameRecord.new()
+      @game_record||=GameRecord.new(:max_depth=>maxdepth)
       @game_record.save
+    end
+  end
+
+  def get_maxdepth(difficulty)
+    if difficulty==:easy
+      2
     end
   end
 
@@ -17,6 +24,10 @@ class Game
 
   def id
     @game_record.id
+  end
+
+  def maxdepth
+    @game_record.max_depth
   end
 
   def add_move(row,col,player)
@@ -49,7 +60,7 @@ class Game
       col=coordinates[1]
       add_move(row,col,player.to_s)
       other_player=Game.other_player(player)
-      cpu_move=board_object.get_cpu_move(other_player)
+      cpu_move=board_object.get_cpu_move(other_player,maxdepth)
       if cpu_move
         add_move(cpu_move[0],cpu_move[1],other_player.to_s)
       end

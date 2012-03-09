@@ -1,6 +1,7 @@
 class CreateGameRecords < ActiveRecord::Migration
   def change
     create_table :game_records do |t|
+      t.integer :max_depth
 
       t.timestamps
     end
