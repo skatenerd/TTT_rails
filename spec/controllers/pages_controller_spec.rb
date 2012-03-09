@@ -34,24 +34,27 @@ describe PagesController do
     end
     
     it "should add a round to the current game" do
+      Board.any_instance.stub(:get_cpu_move).and_return([0,2])
       post('game',{:game_id=>1,:coordinates=>22,:player=>"o"})
       game_record=GameRecord.find(1)
       game_record.move_records.count.should ==3
       game_record.move_records.last.player.should =="x"
+      game_record.move_records.last.row.should ==0
+      game_record.move_records.last.col.should ==2
     end
    
-    it "should display the board that was sent" do
-      post('game',{:game_id=>1,:coordinates=>22,:player=>"o"})
-      response.should have_selector("div", :name=> "boardContainer") do |container|
-        container.should contain("x")
-        container.should contain("o")
-      end
-    end
-
     it "does not display links for occupied squares" do
       post('game',{:game_id=>1,:coordinates=>22,:player=>"o"})
       response.body.should_not include('a href="/game?board_id=2&amp;coordinates=00')
       response.body.should_not include('a href="/game?board_id=2&amp;coordinates=22')
+    end
+
+    it "displays victory message when gets a terminated game" do
+      Board.any_instance.stub(:get_winner).and_return("X")
+
+      post('game',{:game_id=>1,:coordinates=>"02",:player=>"o"})
+      response.should have_selector("div",:name=>"winner")
+      response.body.should_not include('a href="/game?board_id=2&amp;coordinates=')
     end
 
   end
@@ -59,11 +62,6 @@ describe PagesController do
 end
 
 #
-    #it "displays victory message when gets a terminated game" do
-      #post('game',{:board_id=>2,:coordinates=>22})
-      #response.should have_selector("div",:name=>"winner")
-      #response.body.should_not include('a href="/game?board_id=2&amp;coordinates=')
-    #end
 #
   #end
 #end

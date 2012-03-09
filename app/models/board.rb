@@ -36,24 +36,20 @@ class Board
     return move 
   end
 
+  def board_full?
+    board_string.gsub(" ","").length==9
+  end
+
+  def get_winner()
+    winner=nil
+    postdata=("board="+board_string).downcase
+    respdata=make_ttt_request(postdata,"/ttt/winner")
+    if respdata.length==1
+      winner=respdata
+    elsif board_full?
+      winner="TIE"
+    end
+  end
+
 end
 
-  #def board_full?
-    #board_string.gsub(" ","").length==9
-  #end
-#
-#
-  #def get_winner()
-    #winner=nil
-    #postdata=("board="+board_string).downcase
-    #respdata=make_ttt_request(postdata,"/ttt/winner")
-    #if respdata.length==1
-      #winner=respdata
-    #elsif board_full?
-      #winner="TIE"
-    #end
-  #end
-#
-#
-#
-#end
