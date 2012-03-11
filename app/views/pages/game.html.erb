@@ -8,6 +8,8 @@ render :partial => "board", :object => @board, :locals=>{:game_id =>@game_id,:pl
 if @winner
 %><%=
 render :partial => "winner", :object => @winner
+%><%=
+render :partial => "stats", :object => @stats
 %><%
 end
 %>

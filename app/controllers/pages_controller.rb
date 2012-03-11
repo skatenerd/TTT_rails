@@ -21,6 +21,7 @@ class PagesController < ApplicationController
     @winner=game.board_object.get_winner()
     @stylesheets=[action_param]
     @title="Gametime"
+    @stats=Game.stats
 
   end
 
