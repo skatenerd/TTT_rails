@@ -69,20 +69,20 @@ class Game
     wins.count
   end
 
-  def self.record(difficulty)
-    cpu_wins=player_win_count(difficulty,:o)
-    human_wins=player_win_count(difficulty,:x)
-    tie_count=player_win_count(difficulty,nil)
-    [cpu_wins,human_wins,tie_count]
+  def self.stats()
+    stats=Hash.new()
+    stats[:easy]=stats_for_difficulty(:easy)
+    stats[:unbeatable]=stats_for_difficulty(:unbeatable)
+    stats
   end
 
-  def self.easy_record
-    record(:easy)
+  def self.stats_for_difficulty(difficulty)
+    stats=Hash.new
+    stats[:cpu_wins]=player_win_count(difficulty,:o)
+    stats[:human_wins]=player_win_count(difficulty,:x)
+    stats[:tie_count]=player_win_count(difficulty,nil)
+    stats
   end
-  def self.unbeatable_record
-    record(:unbeatable)
-  end
-
   
 
   def update_for_human_cpu_round(coordinates,player)

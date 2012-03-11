@@ -27,6 +27,7 @@ class PagesController < ApplicationController
   def menu
     @title="Main Menu"
     @stylesheets=[]
+    @stats=Game.stats
 
   end
 

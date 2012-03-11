@@ -10,4 +10,5 @@
 ("<li>"+link_to("Start Easy Game", game_path(:difficulty=>:easy))+"</li>").html_safe
 %><%=
 "</div>".html_safe
-%>
+%><%=
+render :partial => "stats", :object=>@stats%>
