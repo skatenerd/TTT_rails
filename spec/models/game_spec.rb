@@ -53,4 +53,34 @@ describe "basics" do
     game.board_vector.should ==[[:x,:x,:o],[nil,:o,nil],[nil,nil,nil]]
   end
 
+  it "knows the computer's easygame record" do 
+    in_progress_game=Game.new(nil,:easy)
+
+    human_win_game=Game.new(nil,:easy)
+    human_win_game.add_move(0,0,:x)
+    human_win_game.add_move(0,1,:x)
+    human_win_game.add_move(0,2,:x)
+    
+    Game.easy_record.should ==[0,1,1]
+
+  end
+  
+  it "knows the computer's unbeatable game record" do 
+    in_progress_game=Game.new(nil,:easy)
+    human_win_easy_game=Game.new(nil,:easy)
+    human_win_easy_game.add_move(0,0,:x)
+    human_win_easy_game.add_move(0,1,:x)
+    human_win_easy_game.add_move(0,2,:x)
+
+    cpu_win_unbeatable_game=Game.new(nil,:unbeatable)
+    cpu_win_unbeatable_game.add_move(0,0,:o)
+    cpu_win_unbeatable_game.add_move(0,1,:o)
+    cpu_win_unbeatable_game.add_move(0,2,:o)
+    
+    
+    Game.unbeatable_record.should ==[1,0,0]
+
+  end
+
+
 end

@@ -3,7 +3,7 @@ class Game
   attr_accessor :game_record
 
   def initialize(game_record_id,difficulty)
-    maxdepth=get_maxdepth difficulty
+    maxdepth=Game.get_maxdepth difficulty
     if game_record_id
       @game_record=GameRecord.find(game_record_id)
     else
@@ -12,7 +12,7 @@ class Game
     end
   end
 
-  def get_maxdepth(difficulty)
+  def self.get_maxdepth(difficulty)
     if difficulty==:easy
       2
     end
@@ -53,6 +53,37 @@ class Game
   def board_vector
     board_object.board_vector
   end
+
+  def winner()
+    winner=board_object.get_winner
+    if winner
+      winner.intern
+    end
+  end
+
+  def self.player_win_count(difficulty,player)
+    maxdepth=get_maxdepth(difficulty)
+    wins=GameRecord.all.find_all{|r|
+      game=Game.new(r,nil)
+      r.max_depth==maxdepth and game.winner==player}
+    wins.count
+  end
+
+  def self.record(difficulty)
+    cpu_wins=player_win_count(difficulty,:o)
+    human_wins=player_win_count(difficulty,:x)
+    tie_count=player_win_count(difficulty,nil)
+    [cpu_wins,human_wins,tie_count]
+  end
+
+  def self.easy_record
+    record(:easy)
+  end
+  def self.unbeatable_record
+    record(:unbeatable)
+  end
+
+  
 
   def update_for_human_cpu_round(coordinates,player)
     if coordinates and coordinates.length==2
