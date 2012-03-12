@@ -27,9 +27,32 @@ describe "basics" do
     game_record=GameRecord.new()
     game_record.save()
     game=Game.create_from_id(game_record.id)
-    game.add_move(0,0,:x)
+    game.add_move(0,0)
+    game.add_move(1,1)
+    game.move_records.count.should ==2
+    game.move_records.all[0].player.should =="x"
+    game.move_records.all[0].move_index.should ==0
+    game.move_records.all[1].player.should =="o"
+    game.move_records.all[1].move_index.should ==1
+  end
+
+  it "adds a move on creation for cpu as first player" do
+    game=Game.create_new(:easy,:cpu)
     game.move_records.count.should ==1
     game.move_records.all[0].player.should =="x"
+    game.current_player.should ==:o
+  end
+
+
+  it "knows the current player" do
+    game=Game.create_new(:easy,:human)
+    game.current_player.should ==:x
+    game.add_move(0,0)
+    game.current_player.should ==:o
+    game.add_move(1,1)
+    game.current_player.should ==:x
+    game.add_move(2,2)
+    game.current_player.should ==:o
   end
 
   it "has a board vector accessor" do
@@ -50,7 +73,7 @@ describe "basics" do
     game=Game.create_new(:medium,:human)
     game.add_move(0,0,:x)
     game.add_move(1,1,:o)
-    game.update_for_human_cpu_round([0,1],:x)
+    game.update_for_human_cpu_round([0,1])
     game.board_vector.should ==[[:x,:x,:o],[nil,:o,nil],[nil,nil,nil]]
   end
 

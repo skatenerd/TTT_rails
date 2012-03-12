@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20120308195209) do
     t.integer  "col"
     t.string   "player"
     t.integer  "game_record_id"
+    t.integer  "move_index"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end

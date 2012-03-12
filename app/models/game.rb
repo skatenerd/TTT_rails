@@ -45,8 +45,19 @@ class Game
     @game_record.first_player.intern
   end
 
-  def add_move(row,col,player)
-    @game_record.move_records.create(:row=>row,:col=>col,:player=>player)
+  def add_move(row,col,player=current_player)
+    move_count=move_records.count
+    @game_record.move_records.create(:row=>row,:col=>col,:player=>player,:move_index=> move_count)
+  end
+
+
+  def current_player()
+    last_move=move_records.find(:all,:order=>"move_index ASC").last
+    if last_move
+      Game.other_player(last_move.player.intern)
+    else
+      :x
+    end
   end
 
   def self.other_player(player)
@@ -119,11 +130,11 @@ class Game
   end
   
 
-  def update_for_human_cpu_round(coordinates,player)
+  def update_for_human_cpu_round(coordinates)
     if coordinates and coordinates.length==2
       row=coordinates[0]
       col=coordinates[1]
-      add_move(row,col,player.to_s)
+      add_move(row,col)
       other_player=Game.other_player(player)
       add_cpu_move(other_player)
     end

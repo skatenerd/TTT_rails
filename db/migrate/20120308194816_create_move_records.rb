@@ -5,6 +5,7 @@ class CreateMoveRecords < ActiveRecord::Migration
       t.integer :col
       t.string :player
       t.integer :game_record_id
+      t.integer :move_index
 
       t.timestamps
     end

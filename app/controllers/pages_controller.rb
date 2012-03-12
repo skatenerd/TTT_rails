@@ -3,13 +3,11 @@ class PagesController < ApplicationController
   DefaultStylesheet="application"
   def game
     game_id_param=params[:game_id]
-    player_param=params[:player]
     coordinates_param=params[:coordinates]
     
     game=Game.create_from_id(game_id_param)
     coordinates=extract_coordinates(coordinates_param)
-    current_player=player_param.intern
-    game.update_for_human_cpu_round(coordinates,current_player)
+    game.update_for_human_cpu_round(coordinates)
 
     @board=game.board_vector
     @game_id=game.id
