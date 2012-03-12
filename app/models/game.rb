@@ -1,15 +1,19 @@
-require 'net/http'
 class Game
   attr_accessor :game_record
 
-  def initialize(game_record_id,difficulty)
+  def self.create_from_id(game_record_id)
+    game=Game.new()
+    game.game_record=GameRecord.find(game_record_id)
+    game
+  end
+
+  def self.create_new(difficulty)
     maxdepth=Game.get_maxdepth difficulty
-    if game_record_id
-      @game_record=GameRecord.find(game_record_id)
-    else
-      @game_record||=GameRecord.new(:max_depth=>maxdepth)
-      @game_record.save
-    end
+    
+    game=Game.new()
+    game.game_record=GameRecord.new(:max_depth=>maxdepth)
+    game.game_record.save
+    game
   end
 
   def self.get_maxdepth(difficulty)
@@ -66,7 +70,7 @@ class Game
   def self.player_win_count(difficulty,player)
     maxdepth=get_maxdepth(difficulty)
     wins=GameRecord.all.find_all{|r|
-      game=Game.new(r,nil)
+      game=Game.create_from_id(r.id)
       r.max_depth==maxdepth and game.winner==player}
     wins.count
   end

@@ -14,8 +14,9 @@ ActiveRecord::Schema.define(:version => 20120308195209) do
 
   create_table "game_records", :force => true do |t|
     t.integer  "max_depth"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "first_player"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "move_records", :force => true do |t|
