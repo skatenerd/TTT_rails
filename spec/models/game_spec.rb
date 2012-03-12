@@ -69,10 +69,10 @@ describe "basics" do
     human_win_easy_game.add_move(0,1,:x)
     human_win_easy_game.add_move(0,2,:x)
     
-    human_win_medium_game=Game.create_new(:medium,:human)
-    human_win_medium_game.add_move(0,0,:x)
-    human_win_medium_game.add_move(0,1,:x)
-    human_win_medium_game.add_move(0,2,:x)
+    human_win_medium_game=Game.create_new(:medium,:cpu)
+    human_win_medium_game.add_move(0,0,:o)
+    human_win_medium_game.add_move(0,1,:o)
+    human_win_medium_game.add_move(0,2,:o)
 
     cpu_win_unbeatable_game=Game.create_new(:unbeatable,:human)
     cpu_win_unbeatable_game.add_move(0,0,:o)

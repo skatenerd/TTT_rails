@@ -18,18 +18,26 @@ describe PagesController do
 
   describe "POST 'new-game'" do
     it "should be successful" do
-      post('new_game',{:player=>:human,:difficulty=>:unbeatable})
+      post('new_game',{:first_player=>:human,:difficulty=>:unbeatable})
       response.should be_success
     end
     
    it "adds to database according to request" do
-      post('new_game',{:player=>:human,:difficulty=>:unbeatable})
+      post('new_game',{:first_player=>:human,:difficulty=>:unbeatable})
       GameRecord.all.count.should ==1
       game_record=GameRecord.find(1)
       game_record.max_depth.should ==Game.get_maxdepth(:unbeatable)
       game_record.first_player.intern.should ==:human
     end
 
+   it "builds a board with a move on it" do
+      post('new_game',{:first_player=>:cpu,:difficulty=>:unbeatable})
+      GameRecord.all.count.should ==1
+      game_record=GameRecord.find(1)
+      game_record.max_depth.should ==Game.get_maxdepth(:unbeatable)
+      game_record.first_player.intern.should ==:cpu
+      game_record.move_records.count.should ==1
+    end
   end
 
   describe "POST 'game'" do
@@ -40,7 +48,7 @@ describe PagesController do
     end
 
     it "should be successful" do
-      post('game',{:game_id=>1})
+      post('game',{:game_id=>1,:coordinates=>22,:player=>"o"})
       response.should have_selector("title", :content=> "Gametime")
     end
     

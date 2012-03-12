@@ -13,6 +13,11 @@ class Game
     game=Game.new()
     game.game_record=GameRecord.new(:max_depth=>maxdepth,:first_player=>first_player.to_s)
     game.game_record.save
+    
+    if first_player == :cpu
+      game.add_cpu_move(:x)
+    end  
+  
     game
   end
 
@@ -102,10 +107,14 @@ class Game
       col=coordinates[1]
       add_move(row,col,player.to_s)
       other_player=Game.other_player(player)
-      cpu_move=board_object.get_cpu_move(other_player,maxdepth)
-      if cpu_move
-        add_move(cpu_move[0],cpu_move[1],other_player.to_s)
-      end
+      add_cpu_move(other_player)
+    end
+  end
+
+  def add_cpu_move(cpu_player)
+    cpu_move=board_object.get_cpu_move(cpu_player,maxdepth)
+    if cpu_move
+      add_move(cpu_move[0],cpu_move[1],cpu_player.to_s)
     end
   end
 

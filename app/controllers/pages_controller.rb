@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  FirstPlayer=:x
+  FirstPlayer=:human
   DefaultStylesheet="application"
   def game
     game_id_param=params[:game_id]
@@ -8,7 +8,7 @@ class PagesController < ApplicationController
     
     game=Game.create_from_id(game_id_param)
     coordinates=extract_coordinates(coordinates_param)
-    current_player=extract_current_player(player_param)
+    current_player=player_param.intern
     game.update_for_human_cpu_round(coordinates,current_player)
 
     @board=game.board_vector
@@ -22,17 +22,23 @@ class PagesController < ApplicationController
 
   def new_game
     action_param=params[:action]
-    player_param=params[:player]
+    first_player_param=params[:first_player]
     difficulty_param=params[:difficulty]
 
-    current_player=extract_current_player(player_param)
-    game=Game.create_new(extract_difficulty(difficulty_param),current_player)
+    first_player=first_player_param.intern
+    game=Game.create_new(extract_difficulty(difficulty_param),first_player)
 
     @board=game.board_vector
     @game_id=game.id
-    @current_player=current_player
     @stylesheets=extract_stylesheets("game")
     @title="Gametime"
+
+    if first_player==:human
+      @current_player=:x
+    else
+      @current_player=:o
+    end
+
 
     render :action=>"game" 
 
@@ -66,14 +72,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def extract_current_player(player_param)
-    if player_param
-      player=player_param.intern
-    else
-      player=FirstPlayer
-    end
-    player
-  end
 
   def about
     @title="About"
