@@ -1,0 +1,10 @@
+footer{
+  border: solid 1px black;
+  font-size: 12px;
+}
+.cpu-win{
+  color: green;
+}
+.human-win{
+  color: red;
+}

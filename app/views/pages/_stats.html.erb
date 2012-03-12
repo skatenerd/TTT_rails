@@ -1,5 +1,5 @@
 <%=
-"<div name='stats'>".html_safe
+"<div name='stats' id='stats'>".html_safe
   %><%=
   "CPU STATISTICS:".html_safe
   %><%=
@@ -7,9 +7,9 @@
     %><%=
     "<ul>".html_safe
     %><%=
-    ("<li>Human Wins: "+stats[:easy][:human_wins].to_s+"</li>").html_safe
+    ("<li class='human-win'>Human Wins: "+stats[:easy][:human_wins].to_s+"</li>").html_safe
     %><%=
-    ("<li>  CPU Wins: "+stats[:easy][:cpu_wins].to_s+"</li>").html_safe
+    ("<li class='cpu-win'>  CPU Wins: "+stats[:easy][:cpu_wins].to_s+"</li>").html_safe
     %><%=
     "</ul>".html_safe
   %><%=
@@ -19,20 +19,21 @@
     %><%=
     "<ul>".html_safe
     %><%=
-    ("<li>Human Wins: "+stats[:medium][:human_wins].to_s+"</li>").html_safe
+    ("<li class='human-win'>Human Wins: "+stats[:medium][:human_wins].to_s+"</li>").html_safe
     %><%=
-    ("<li>  CPU Wins: "+stats[:medium][:cpu_wins].to_s+"</li>").html_safe
+    ("<li class='cpu-win'>  CPU Wins: "+stats[:medium][:cpu_wins].to_s+"</li>").html_safe
     %><%=
     "</ul>".html_safe
   %><%=
   "</div>".html_safe
+  %><%=
   "<div name='unbeatable'>Unbeatable Games".html_safe
     %><%=
     "<ul>".html_safe
     %><%=
-    ("<li>Human Wins: "+stats[:unbeatable][:human_wins].to_s+"</li>").html_safe
+    ("<li class='human-win'>Human Wins: "+stats[:unbeatable][:human_wins].to_s+"</li>").html_safe
     %><%=
-    ("<li>  CPU Wins: "+stats[:unbeatable][:cpu_wins].to_s+"</li>").html_safe
+    ("<li class='cpu-win'>  CPU Wins: "+stats[:unbeatable][:cpu_wins].to_s+"</li>").html_safe
     %><%=
     "</ul>".html_safe
   %><%=

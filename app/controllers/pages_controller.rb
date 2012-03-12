@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   FirstPlayer="x"
+  DefaultStylesheet="application"
   def game
 
     action_param=params[:action]
@@ -19,7 +20,7 @@ class PagesController < ApplicationController
     @game_id=game.id
     @player=player
     @winner=game.board_object.get_winner()
-    @stylesheets=[action_param]
+    @stylesheets=extract_stylesheets(action_param)
     @title="Gametime"
     @stats=Game.stats
 
@@ -27,9 +28,16 @@ class PagesController < ApplicationController
 
   def menu
     @title="Main Menu"
-    @stylesheets=[]
+    @stylesheets=extract_stylesheets(nil)
     @stats=Game.stats
+  end
 
+  def extract_stylesheets(action_param)
+    stylesheets=[DefaultStylesheet]
+    if action_param
+      stylesheets << action_param
+    end
+    stylesheets
   end
 
   def extract_difficulty(difficulty_param)
