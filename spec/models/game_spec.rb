@@ -69,6 +69,17 @@ describe "basics" do
     game.board_vector.should ==[[:x,:x,nil],[nil,:o,nil],[nil,nil,nil]]
   end
 
+  it "knows the winning player" do
+    game=Game.create_new(:easy,:human)
+    game.add_move(0,0,:x)
+    game.winning_player.should ==nil
+    game.add_move(0,1,:x)
+    game.winning_player.should ==nil
+    game.add_move(0,2,:x)
+    game.winning_player.should ==:human
+
+  end
+
   it "updates for round of human and cpu move" do
     game=Game.create_new(:medium,:human)
     game.add_move(0,0,:x)

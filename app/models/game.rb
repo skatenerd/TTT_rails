@@ -87,21 +87,20 @@ class Game
     end
   end
 
-  def human_player_code
-    if first_player==:human
+  def player_code(player)
+    if first_player==player
       :x
     else
       :o
     end
   end
 
+
   def winning_player()
-    if winner
-      if winner==human_player_code
-        :human
-      else
-        :cpu
-      end
+    if winner==player_code(:human)
+      :human
+    elsif winner==player_code(:cpu)
+      :cpu
     end
   end
 
