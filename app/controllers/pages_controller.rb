@@ -8,17 +8,19 @@ class PagesController < ApplicationController
     player_param=params[:player]
     coordinates_param=params[:coordinates]
     difficulty_param=params[:difficulty]
+    first_player_param=params[:first_player]
     
     board_object=Board.new()
     game=Game.new(game_id_param,extract_difficulty(difficulty_param))
     coordinates=extract_coordinates(coordinates_param)
-    player=extract_player(player_param)
-    game.update_for_human_cpu_round(coordinates,player.intern)
+    current_player=extract_current_player(player_param)
+    first_player=extract_first_player(player_param)
+    game.update_for_human_cpu_round(coordinates,current_player.intern)
 
     @coordinates=coordinates
     @board=game.board_vector
     @game_id=game.id
-    @player=player
+    @current_player=current_player
     @winner=game.board_object.get_winner()
     @stylesheets=extract_stylesheets(action_param)
     @title="Gametime"
@@ -54,12 +56,20 @@ class PagesController < ApplicationController
     end
   end
 
-  def extract_player(player_param)
+  def extract_current_player(player_param)
     if player_param
-      @player=player_param
+      player=player_param
     else
-      @player=FirstPlayer
+      player=FirstPlayer
     end
+    player
+  end
+
+  def extract_first_player(first_player_param)
+    if first_player_param
+      first_player=first_player_param.intern
+    end
+    first_player
   end
 
   def about

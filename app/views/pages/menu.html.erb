@@ -2,15 +2,47 @@
 "<div>Start a game!</div>".html_safe
 %><%=
 "<div name=newGame>".html_safe
-%><%=
-"<ul>".html_safe
-%><%=
-("<li>"+link_to("Start Unbeatable Game", game_path(:difficulty=>:unbeatable))+"</li>").html_safe
-%><%=
-("<li>"+link_to("Start Medium Game", game_path(:difficulty=>:medium))+"</li>").html_safe
-%><%=
-("<li>"+link_to("Start Easy Game", game_path(:difficulty=>:easy))+"</li>").html_safe
-%><%=
+  %><%=
+  "<ul>".html_safe
+    %><%=
+    ("<li>"+"Start an Unbeatable Game").html_safe
+      %><%=
+      "<ul>".html_safe
+      %><%=
+      ("<li>"+link_to("Human First", game_path(:difficulty=>:unbeatable,:first_player=>:human))).html_safe
+      %><%=
+      ("<li>"+link_to("CPU First", game_path(:difficulty=>:unbeatable,:first_player=>:cpu))).html_safe
+      %><%=
+      "</ul>".html_safe
+      %><%=
+    "</li>".html_safe
+    %><%=
+    ("<li>"+"Start an Medium Game").html_safe
+      %><%=
+      "<ul>".html_safe
+      %><%=
+      ("<li>"+link_to("Human First", game_path(:difficulty=>:medium,:first_player=>:human))).html_safe
+      %><%=
+      ("<li>"+link_to("CPU First", game_path(:difficulty=>:medium,:first_player=>:cpu))).html_safe
+      %><%=
+      "</ul>".html_safe
+      %><%=
+    "</li>".html_safe
+    %><%=
+    ("<li>"+"Start an Easy Game").html_safe
+      %><%=
+      "<ul>".html_safe
+      %><%=
+      ("<li>"+link_to("Human First", game_path(:difficulty=>:easy,:first_player=>:human))).html_safe
+      %><%=
+      ("<li>"+link_to("CPU First", game_path(:difficulty=>:easy,:first_player=>:cpu))).html_safe
+      %><%=
+      "</ul>".html_safe
+      %><%=
+    "</li>".html_safe
+    %><%=
+  "<ul>".html_safe
+  %><%=
 "</div>".html_safe
 %><%=
 render :partial => "stats", :object=>@stats%>
