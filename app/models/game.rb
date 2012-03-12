@@ -15,6 +15,8 @@ class Game
   def self.get_maxdepth(difficulty)
     if difficulty==:easy
       2
+    elsif difficulty==:medium
+      3
     end
   end
 
@@ -73,6 +75,7 @@ class Game
     stats=Hash.new()
     stats[:easy]=stats_for_difficulty(:easy)
     stats[:unbeatable]=stats_for_difficulty(:unbeatable)
+    stats[:medium]=stats_for_difficulty(:medium)
     stats
   end
 

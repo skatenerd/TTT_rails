@@ -1,5 +1,7 @@
 <%=
-"<div name='statsl>".html_safe
+"<div name='stats'>".html_safe
+  %><%=
+  "CPU STATISTICS:".html_safe
   %><%=
   "<div name='easy'>Easy Games".html_safe
     %><%=
@@ -13,6 +15,17 @@
   %><%=
   "</div>".html_safe
   %><%=
+  "<div name='medium'>Medium Games".html_safe
+    %><%=
+    "<ul>".html_safe
+    %><%=
+    ("<li>Human Wins: "+stats[:medium][:human_wins].to_s+"</li>").html_safe
+    %><%=
+    ("<li>  CPU Wins: "+stats[:medium][:cpu_wins].to_s+"</li>").html_safe
+    %><%=
+    "</ul>".html_safe
+  %><%=
+  "</div>".html_safe
   "<div name='unbeatable'>Unbeatable Games".html_safe
     %><%=
     "<ul>".html_safe

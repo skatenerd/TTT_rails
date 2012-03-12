@@ -53,34 +53,44 @@ describe "basics" do
     game.board_vector.should ==[[:x,:x,:o],[nil,:o,nil],[nil,nil,nil]]
   end
 
-  it "knows the computer's easygame record" do 
-    in_progress_game=Game.new(nil,:easy)
-
-    human_win_game=Game.new(nil,:easy)
-    human_win_game.add_move(0,0,:x)
-    human_win_game.add_move(0,1,:x)
-    human_win_game.add_move(0,2,:x)
-    
-    Game.easy_record.should ==[0,1,1]
-
+  it "computes max depth based on difficulty" do
+    Game.get_maxdepth(:easy).should ==2
+    Game.get_maxdepth(:medium).should ==3
+    Game.get_maxdepth(:unbeatable).should_not
   end
-  
-  it "knows the computer's unbeatable game record" do 
+
+  it "knows the computer's win-loss record" do 
     in_progress_game=Game.new(nil,:easy)
+
+    
     human_win_easy_game=Game.new(nil,:easy)
     human_win_easy_game.add_move(0,0,:x)
     human_win_easy_game.add_move(0,1,:x)
     human_win_easy_game.add_move(0,2,:x)
+    
+    human_win_medium_game=Game.new(nil,:medium)
+    human_win_medium_game.add_move(0,0,:x)
+    human_win_medium_game.add_move(0,1,:x)
+    human_win_medium_game.add_move(0,2,:x)
 
     cpu_win_unbeatable_game=Game.new(nil,:unbeatable)
     cpu_win_unbeatable_game.add_move(0,0,:o)
     cpu_win_unbeatable_game.add_move(0,1,:o)
     cpu_win_unbeatable_game.add_move(0,2,:o)
-    
-    
-    Game.unbeatable_record.should ==[1,0,0]
 
+    Game.stats[:easy][:tie_count].should ==1
+    Game.stats[:easy][:human_wins].should ==1
+    Game.stats[:easy][:cpu_wins].should ==0
+
+    Game.stats[:medium][:tie_count].should ==0
+    Game.stats[:medium][:human_wins].should ==1
+    Game.stats[:medium][:cpu_wins].should ==0
+
+    Game.stats[:unbeatable][:tie_count].should ==0
+    Game.stats[:unbeatable][:human_wins].should ==0
+    Game.stats[:unbeatable][:cpu_wins].should ==1
   end
+  
 
 
 end
