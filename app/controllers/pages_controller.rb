@@ -31,7 +31,10 @@ class PagesController < ApplicationController
     @title="Gametime"
 
     render :action=>"game" 
+  end
 
+  def game_listings
+    @stylesheets=extract_stylesheets(nil)
   end
 
   def menu

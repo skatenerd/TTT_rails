@@ -16,6 +16,14 @@ describe PagesController do
     end
   end
 
+  describe "GET 'game-listings'" do
+    it "should be successful" do
+      get 'game_listings'
+      response.should be_success
+    end
+
+  end
+
   describe "POST 'new-game'" do
     it "should be successful" do
       post('new_game',{:first_player=>:human,:difficulty=>:unbeatable})
