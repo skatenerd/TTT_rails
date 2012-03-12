@@ -2,7 +2,6 @@ class PagesController < ApplicationController
   FirstPlayer=:x
   DefaultStylesheet="application"
   def game
-    action_param=params[:action]
     game_id_param=params[:game_id]
     player_param=params[:player]
     coordinates_param=params[:coordinates]
@@ -16,7 +15,7 @@ class PagesController < ApplicationController
     @game_id=game.id
     @current_player=current_player
     @winner=game.board_object.get_winner()
-    @stylesheets=extract_stylesheets(action_param)
+    @stylesheets=extract_stylesheets("game")
     @title="Gametime"
     @stats=Game.stats
   end
@@ -27,13 +26,14 @@ class PagesController < ApplicationController
     difficulty_param=params[:difficulty]
 
     current_player=extract_current_player(player_param)
-    game=Game.create_new(extract_difficulty(difficulty_param))
+    game=Game.create_new(extract_difficulty(difficulty_param),current_player)
 
     @board=game.board_vector
     @game_id=game.id
     @current_player=current_player
-    @stylesheets=extract_stylesheets(action_param)
+    @stylesheets=extract_stylesheets("game")
     @title="Gametime"
+
     render :action=>"game" 
 
   end

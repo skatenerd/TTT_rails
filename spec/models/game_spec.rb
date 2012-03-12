@@ -7,9 +7,10 @@ describe "basics" do
     game.game_record.should == game_record
   end
 
-  it "can create a game from scratch with a difficulty" do
-    game=Game.create_new(:unbeatable)
+  it "can create a game from scratch with a difficulty and first-player" do
+    game=Game.create_new(:unbeatable,:cpu)
     game.game_record.should
+    game.first_player.should ==:cpu
     game.game_record.max_depth.should ==nil
   end
 
@@ -32,13 +33,13 @@ describe "basics" do
   end
 
   it "has a board vector accessor" do
-    empty_game=Game.create_new(:easy)
+    empty_game=Game.create_new(:easy,:human)
     empty_game.board_vector.should ==[[nil,nil,nil],[nil,nil,nil],[nil,nil,nil]]
 
   end 
 
   it "can access board vector based on moves made" do
-    game=Game.create_new(:easy)
+    game=Game.create_new(:easy,:human)
     game.add_move(0,0,:x)
     game.add_move(0,1,:x)
     game.add_move(1,1,:o)
@@ -46,7 +47,7 @@ describe "basics" do
   end
 
   it "updates for round of human and cpu move" do
-    game=Game.create_new(:medium)
+    game=Game.create_new(:medium,:human)
     game.add_move(0,0,:x)
     game.add_move(1,1,:o)
     game.update_for_human_cpu_round([0,1],:x)
@@ -60,20 +61,20 @@ describe "basics" do
   end
 
   it "knows the computer's win-loss record" do 
-    in_progress_game=Game.create_new(:easy)
+    in_progress_game=Game.create_new(:easy,:human)
 
     
-    human_win_easy_game=Game.create_new(:easy)
+    human_win_easy_game=Game.create_new(:easy,:human)
     human_win_easy_game.add_move(0,0,:x)
     human_win_easy_game.add_move(0,1,:x)
     human_win_easy_game.add_move(0,2,:x)
     
-    human_win_medium_game=Game.create_new(:medium)
+    human_win_medium_game=Game.create_new(:medium,:human)
     human_win_medium_game.add_move(0,0,:x)
     human_win_medium_game.add_move(0,1,:x)
     human_win_medium_game.add_move(0,2,:x)
 
-    cpu_win_unbeatable_game=Game.create_new(:unbeatable)
+    cpu_win_unbeatable_game=Game.create_new(:unbeatable,:human)
     cpu_win_unbeatable_game.add_move(0,0,:o)
     cpu_win_unbeatable_game.add_move(0,1,:o)
     cpu_win_unbeatable_game.add_move(0,2,:o)

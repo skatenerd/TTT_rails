@@ -7,11 +7,11 @@ class Game
     game
   end
 
-  def self.create_new(difficulty)
+  def self.create_new(difficulty,first_player)
     maxdepth=Game.get_maxdepth difficulty
     
     game=Game.new()
-    game.game_record=GameRecord.new(:max_depth=>maxdepth)
+    game.game_record=GameRecord.new(:max_depth=>maxdepth,:first_player=>first_player.to_s)
     game.game_record.save
     game
   end
@@ -34,6 +34,10 @@ class Game
 
   def maxdepth
     @game_record.max_depth
+  end
+
+  def first_player
+    @game_record.first_player.intern
   end
 
   def add_move(row,col,player)
