@@ -76,11 +76,29 @@ class Game
     end
   end
 
+  def human_player_code
+    if first_player==:human
+      :x
+    else
+      :o
+    end
+  end
+
+  def winning_player()
+    if winner
+      if winner==human_player_code
+        :human
+      else
+        :cpu
+      end
+    end
+  end
+
   def self.player_win_count(difficulty,player)
     maxdepth=get_maxdepth(difficulty)
     wins=GameRecord.all.find_all{|r|
       game=Game.create_from_id(r.id)
-      r.max_depth==maxdepth and game.winner==player}
+      r.max_depth==maxdepth and game.winning_player==player}
     wins.count
   end
 
@@ -94,8 +112,8 @@ class Game
 
   def self.stats_for_difficulty(difficulty)
     stats=Hash.new
-    stats[:cpu_wins]=player_win_count(difficulty,:o)
-    stats[:human_wins]=player_win_count(difficulty,:x)
+    stats[:cpu_wins]=player_win_count(difficulty,:cpu)
+    stats[:human_wins]=player_win_count(difficulty,:human)
     stats[:tie_count]=player_win_count(difficulty,nil)
     stats
   end

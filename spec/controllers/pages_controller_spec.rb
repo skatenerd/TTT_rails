@@ -42,7 +42,7 @@ describe PagesController do
 
   describe "POST 'game'" do
     before(:each) do
-      game_record=GameRecord.new()
+      game_record=GameRecord.new(:first_player=>:cpu)
       game_record.save
       game_record.move_records.create(:row=>0,:col=>0,:player=>"x")
     end
