@@ -15,7 +15,7 @@ class Game
     game.game_record.save
     
     if first_player == :cpu
-      game.add_cpu_move(:x)
+      game.add_cpu_move
     end  
   
     game
@@ -47,7 +47,7 @@ class Game
 
   def add_move(row,col,player=current_player)
     move_count=move_records.count
-    @game_record.move_records.create(:row=>row,:col=>col,:player=>player,:move_index=> move_count)
+    @game_record.move_records.create(:row=>row,:col=>col,:player=>player.to_s,:move_index=> move_count)
   end
 
 
@@ -135,15 +135,14 @@ class Game
       row=coordinates[0]
       col=coordinates[1]
       add_move(row,col)
-      other_player=Game.other_player(player)
-      add_cpu_move(other_player)
+      add_cpu_move
     end
   end
 
-  def add_cpu_move(cpu_player)
-    cpu_move=board_object.get_cpu_move(cpu_player,maxdepth)
+  def add_cpu_move
+    cpu_move=board_object.get_cpu_move(current_player,maxdepth)
     if cpu_move
-      add_move(cpu_move[0],cpu_move[1],cpu_player.to_s)
+      add_move(cpu_move[0],cpu_move[1])
     end
   end
 

@@ -11,7 +11,6 @@ class PagesController < ApplicationController
 
     @board=game.board_vector
     @game_id=game.id
-    @current_player=current_player
     @winner=game.board_object.get_winner()
     @stylesheets=extract_stylesheets("game")
     @title="Gametime"
