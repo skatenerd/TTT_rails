@@ -30,13 +30,6 @@ class PagesController < ApplicationController
     @stylesheets=extract_stylesheets("game")
     @title="Gametime"
 
-    if first_player==:human
-      @current_player=:x
-    else
-      @current_player=:o
-    end
-
-
     render :action=>"game" 
 
   end
