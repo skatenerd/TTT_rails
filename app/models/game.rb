@@ -105,11 +105,15 @@ class Game
   end
 
   def self.player_win_count(difficulty,player)
+    wins=Game.player_wins(difficulty,player)
+    wins.count
+  end
+
+  def self.player_wins(difficulty,player)
     maxdepth=get_maxdepth(difficulty)
-    wins=GameRecord.all.find_all{|r|
+    GameRecord.all.find_all{|r|
       game=Game.create_from_id(r.id)
       r.max_depth==maxdepth and game.winning_player==player}
-    wins.count
   end
 
   def self.stats()
@@ -120,11 +124,26 @@ class Game
     stats
   end
 
+  def self.detailed_stats()
+    stats=Hash.new()
+    stats[:easy]=detailed_stats_for_difficulty(:easy)
+    stats[:medium]=detailed_stats_for_difficulty(:medium)
+    stats[:unbeatable]=detailed_stats_for_difficulty(:unbeatable)
+    stats
+  end
+
   def self.stats_for_difficulty(difficulty)
     stats=Hash.new
     stats[:cpu_wins]=player_win_count(difficulty,:cpu)
     stats[:human_wins]=player_win_count(difficulty,:human)
     stats[:tie_count]=player_win_count(difficulty,nil)
+    stats
+  end
+
+  def self.detailed_stats_for_difficulty(difficulty)
+    stats=Hash.new
+    stats[:cpu_wins]=player_wins(difficulty,:cpu).map{|record| Game.create_from_id(record.id).board_object.board_string}
+    stats[:human_wins]=player_wins(difficulty,:human).map{|record| Game.create_from_id(record.id).board_object.board_string}
     stats
   end
   

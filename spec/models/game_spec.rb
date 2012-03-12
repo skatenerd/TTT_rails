@@ -96,7 +96,6 @@ describe "basics" do
 
   it "knows the computer's win-loss record" do 
     in_progress_game=Game.create_new(:easy,:human)
-
     
     human_win_easy_game=Game.create_new(:easy,:human)
     human_win_easy_game.add_move(0,0,:x)
@@ -124,6 +123,36 @@ describe "basics" do
     Game.stats[:unbeatable][:tie_count].should ==0
     Game.stats[:unbeatable][:human_wins].should ==0
     Game.stats[:unbeatable][:cpu_wins].should ==1
+  end
+
+  it "computes verbose statistics" do
+    in_progress_game=Game.create_new(:easy,:human)
+    
+    human_win_easy_game=Game.create_new(:easy,:human)
+    human_win_easy_game.add_move(0,0,:x)
+    human_win_easy_game.add_move(0,1,:x)
+    human_win_easy_game.add_move(0,2,:x)
+    
+    human_win_medium_game=Game.create_new(:medium,:cpu)
+    human_win_medium_game.add_move(0,0,:o)
+    human_win_medium_game.add_move(0,1,:o)
+    human_win_medium_game.add_move(0,2,:o)
+
+    cpu_win_unbeatable_game=Game.create_new(:unbeatable,:human)
+    cpu_win_unbeatable_game.add_move(0,0,:o)
+    cpu_win_unbeatable_game.add_move(0,1,:o)
+    cpu_win_unbeatable_game.add_move(0,2,:o)
+
+    Game.detailed_stats[:easy][:human_wins].should ==["xxx      "]
+    Game.detailed_stats[:easy][:cpu_wins].should ==[]
+
+    Game.detailed_stats[:medium][:human_wins].should ==["ooo      "]
+    Game.detailed_stats[:medium][:cpu_wins].should ==[]
+
+    Game.detailed_stats[:unbeatable][:human_wins].should ==[]
+    Game.detailed_stats[:unbeatable][:cpu_wins].should ==["ooo      "]
+    
+   
   end
   
 
