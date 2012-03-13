@@ -30,6 +30,8 @@ class PagesController < ApplicationController
     @turn=turn
     @title="Game Playback"
     @stylesheets=extract_stylesheets("game")
+    @can_step_forward=game.can_step_forward(turn)
+    @can_step_backward=game.can_step_backward(turn)
   end
 
   def new_game

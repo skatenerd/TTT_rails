@@ -54,6 +54,14 @@ class Game
     @game_record.move_records.create(:row=>row,:col=>col,:player=>player.to_s,:move_index=> move_count)
   end
 
+  def can_step_forward(turn)
+    turn < move_records.count
+  end
+
+  def can_step_backward(turn)
+    turn>0
+  end
+
 
   def current_player()
     last_move=sorted_move_records.last

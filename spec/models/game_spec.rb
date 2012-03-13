@@ -187,6 +187,20 @@ describe "basics" do
                                                           [nil,nil,nil],
                                                           [nil,nil,nil]]
   end
+
+  it "knows when it can step forward" do
+    game=Game.create_new(:easy,:human)
+    game.add_move(0,0,:x)
+    game.add_move(0,1,:x)
+    game.add_move(0,2,:x)
+
+    game.can_step_forward(0).should ==true
+    game.can_step_forward(1).should ==true
+    game.can_step_forward(2).should ==true
+    game.can_step_forward(3).should ==false
+
+    
+  end
   
 
 

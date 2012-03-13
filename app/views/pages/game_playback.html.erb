@@ -5,8 +5,14 @@ render :partial => "board",
        :object => @board, 
        :locals=>{:game_id =>@game_id,:should_build_link=>@should_build_link}
 %><%=
-build_next_link(@game_id,@turn)
+if @can_step_backward
+  build_previous_link(@game_id,@turn)
+end
 %><%=
-build_previous_link(@game_id,@turn)
+" "
+%><%=
+if @can_step_forward
+  build_next_link(@game_id,@turn)
+end
 %>
 

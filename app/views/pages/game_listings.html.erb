@@ -9,7 +9,7 @@
     %><%
     @stats[:easy][:human_wins].each do |win|
     %><%=
-      ("<div>"+build_game_link(win)+"</div>").html_safe
+      ("<div>"+build_playback_link(win)+"</div>").html_safe
     %><%
     end
     %><%=
@@ -19,7 +19,7 @@
     %><%
     @stats[:easy][:cpu_wins].each do |win|
     %><%=
-      ("<div>"+build_game_link(win)+"</div>").html_safe
+      ("<div>"+build_playback_link(win)+"</div>").html_safe
     %><%
     end
     %><%=
@@ -37,7 +37,7 @@
     %><%
     @stats[:medium][:human_wins].each do |win|
     %><%=
-      ("<div>"+build_game_link(win)+"</div>").html_safe
+      ("<div>"+build_playback_link(win)+"</div>").html_safe
     %><%
     end
     %><%=
@@ -47,7 +47,7 @@
     %><%
     @stats[:medium][:cpu_wins].each do |win|
     %><%=
-      ("<div>"+build_game_link(win)+"</div>").html_safe
+      ("<div>"+build_playback_link(win)+"</div>").html_safe
     %><%
     end
     %><%=
@@ -65,7 +65,7 @@
     %><%
     @stats[:unbeatable][:human_wins].each do |win|
     %><%=
-      ("<div>"+build_game_link(win)+"</div>").html_safe
+      ("<div>"+build_playback_link(win)+"</div>").html_safe
     %><%
     end
     %><%=
@@ -75,7 +75,7 @@
     %><%
     @stats[:unbeatable][:cpu_wins].each do |win|
     %><%=
-      ("<div>"+build_game_link(win)+"</div>").html_safe
+      ("<div>"+build_playback_link(win)+"</div>").html_safe
     %><%
     end
     %><%=

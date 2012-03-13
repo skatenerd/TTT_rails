@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'game_playback_helper'
 
 describe PagesController do
   render_views
@@ -18,14 +19,22 @@ describe PagesController do
 
   describe "POST 'game_playback" do
     before(:each) do
-      game_record=GameRecord.new(:first_player=>:cpu)
+      game_record=GameRecord.new(:first_player=>:human)
       game_record.save
       game_record.move_records.create(:row=>0,:col=>0,:player=>"x")
+      game_record.move_records.create(:row=>0,:col=>1,:player=>"x")
+      game_record.move_records.create(:row=>0,:col=>2,:player=>"x")
     end
 
     it "should be successful" do
       post('game_playback',{:game_id=>1,:turn=>0})
       response.should be_success
+    end
+
+    it "should not display the left arrow at turn 0" do
+      post('game_playback',{:game_id=>1,:turn=>0})
+      response.body.should_not include "&lt;--"
+      response.body.should include "--&gt;"
     end
   end
 

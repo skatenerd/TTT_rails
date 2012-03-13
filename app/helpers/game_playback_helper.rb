@@ -4,11 +4,11 @@ module GamePlaybackHelper
   end
 
   def build_next_link(game_id,current_turn)
-    link_to("Next",get_playback_url(game_id,current_turn+1),:method=>:post).html_safe
+    link_to("--->",get_playback_url(game_id,current_turn+1),:method=>:post).html_safe
   end
 
   def build_previous_link(game_id,current_turn)
-    link_to("Previous",get_playback_url(game_id,current_turn-1),:method=>:post).html_safe
+    link_to("<---",get_playback_url(game_id,current_turn-1),:method=>:post).html_safe
   end
 
   def get_playback_url(game_id,turn)
