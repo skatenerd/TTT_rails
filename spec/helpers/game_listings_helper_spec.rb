@@ -1,14 +1,9 @@
 require 'spec_helper'
 
 describe GameListingsHelper do
-  class SelfShunt
+  it "builds a link" do
+    game={:board=>"xxxxxxxxx",:id=>1}
+    build_game_link(game).should include "a href=\"/game_playback?game_id=1&amp;turn=1"
+    build_game_link(game).should include "xxxxxxxxx"
   end
-
-  before(:each) do
-    @shunt=SelfShunt.new()
-    @shunt.extend(GameListingsHelper)
-  end
-
-  game={:board=>"xxxxxxxxx",:id=>1}
-  @shunt.build_game_link(game).should =="<a href=/game_listings?game=xxxxxxxxx&turn=1>"
 end
