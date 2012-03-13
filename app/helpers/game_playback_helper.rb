@@ -1,4 +1,4 @@
-module GameListingsHelper
+module GamePlaybackHelper
   def build_playback_link(game)
     link_to(game[:board],get_playback_url(game[:id],1),:method=>:post).html_safe
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GameListingsHelper do
+describe GamePlaybackHelper do
   it "builds a link" do
     game={:board=>"xxxxxxxxx",:id=>1}
     build_playback_link(game).should include "a href=\"/game_playback?game_id=1&amp;turn=1"
