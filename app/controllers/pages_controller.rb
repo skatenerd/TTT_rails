@@ -18,6 +18,20 @@ class PagesController < ApplicationController
     @stats=Game.stats
   end
 
+  def game_playback
+    game_id_param=params[:game_id]
+    turn_param=params[:turn]
+    
+    game=Game.create_from_id(game_id_param)
+    turn=extract_turn(turn_param)
+    
+    @game_id=game.id
+    @board=game.board_vector_at_turn(turn)
+    @turn=turn
+    @title="Game Playback"
+    @stylesheets=extract_stylesheets("game")
+  end
+
   def new_game
     action_param=params[:action]
     first_player_param=params[:first_player]
@@ -58,6 +72,12 @@ class PagesController < ApplicationController
   def extract_difficulty(difficulty_param)
     if difficulty_param
       difficulty_param.intern
+    end
+  end
+
+  def extract_turn(turn_param)
+    if turn_param
+      Integer(turn_param)
     end
   end
 

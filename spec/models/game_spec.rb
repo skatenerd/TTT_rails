@@ -135,7 +135,7 @@ describe "basics" do
     human_win_medium_game.add_move(0,1,:o)
     human_win_medium_game.add_move(0,2,:o)
 
-    Game.detailed_stats_for_difficulty(:medium)[:human_wins].should ==["ooo_____x"]
+    Game.detailed_stats_for_difficulty(:medium)[:human_wins].should ==[{:board=>"ooo_____x",:id=>1}]
 
   end
 
@@ -158,15 +158,34 @@ describe "basics" do
     cpu_win_unbeatable_game.add_move(0,1,:o)
     cpu_win_unbeatable_game.add_move(0,2,:o)
 
-    Game.detailed_stats[:easy][:human_wins].should ==["xxx______"]
+    Game.detailed_stats[:easy][:human_wins].should ==[{:board=>"xxx______", :id=>2}]
     Game.detailed_stats[:easy][:cpu_wins].should ==[]
 
-    Game.detailed_stats[:medium][:human_wins].should ==["ooo_____x"]
+    Game.detailed_stats[:medium][:human_wins].should ==[{:board=>"ooo_____x", :id=>3}]
     Game.detailed_stats[:medium][:cpu_wins].should ==[]
 
     Game.detailed_stats[:unbeatable][:human_wins].should ==[]
-    Game.detailed_stats[:unbeatable][:cpu_wins].should ==["ooo______"]
+    Game.detailed_stats[:unbeatable][:cpu_wins].should ==[{:board=>"ooo______", :id=>4}]
    
+  end
+
+  it "comptues the board at a given turn" do
+    human_win_easy_game=Game.create_new(:easy,:human)
+    human_win_easy_game.add_move(0,0,:x)
+    human_win_easy_game.add_move(0,1,:x)
+    human_win_easy_game.add_move(0,2,:x)
+
+    human_win_easy_game.board_vector_at_turn(0).should ==[[nil,nil,nil],
+                                                          [nil,nil,nil],
+                                                          [nil,nil,nil]]
+
+    human_win_easy_game.board_vector_at_turn(1).should ==[[:x, nil,nil],
+                                                          [nil,nil,nil],
+                                                          [nil,nil,nil]]
+    
+    human_win_easy_game.board_vector_at_turn(2).should ==[[:x,  :x,nil],
+                                                          [nil,nil,nil],
+                                                          [nil,nil,nil]]
   end
   
 

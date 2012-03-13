@@ -33,6 +33,10 @@ class Game
     @game_record.move_records
   end
 
+  def sorted_move_records
+    move_records.find(:all,:order=>"move_index ASC")
+  end
+
   def id
     @game_record.id
   end
@@ -52,7 +56,7 @@ class Game
 
 
   def current_player()
-    last_move=move_records.find(:all,:order=>"move_index ASC").last
+    last_move=sorted_move_records.last
     if last_move
       Game.other_player(last_move.player.intern)
     else
@@ -69,11 +73,23 @@ class Game
   end
 
   def board_object
+    board_object_at_turn
+  end
+
+  def board_object_at_turn(turn=nil)
     board=Board.new()
-    move_records.each do |move_record|
+    moves=sorted_move_records
+    if turn
+      moves=moves[0,turn]
+    end
+    moves.each do |move_record|
       board.update([move_record.row,move_record.col],move_record.player.intern)
     end
     board
+  end
+
+  def board_vector_at_turn(turn)
+    board_object_at_turn(turn).board_vector
   end
 
   def board_vector
@@ -148,7 +164,11 @@ class Game
   end
 
   def self.get_winning_boards(difficulty,player)
-    player_wins(difficulty,player).map{|record| Game.create_from_id(record.id).board_object.printable_string}
+    player_wins(difficulty,player).map{
+      |record|
+      game=Game.create_from_id(record.id)
+      {:board=>game.board_object.printable_string,
+       :id=>record.id}}
   end
   
 

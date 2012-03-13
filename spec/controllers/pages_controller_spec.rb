@@ -16,7 +16,20 @@ describe PagesController do
     end
   end
 
-  describe "GET 'game-listings'" do
+  describe "POST 'game_playback" do
+    before(:each) do
+      game_record=GameRecord.new(:first_player=>:cpu)
+      game_record.save
+      game_record.move_records.create(:row=>0,:col=>0,:player=>"x")
+    end
+
+    it "should be successful" do
+      post('game_playback',{:game_id=>1,:move_index=>0})
+      response.should be_success
+    end
+  end
+
+  describe "GET 'game_listings'" do
     it "should be successful" do
       get 'game_listings'
       response.should be_success

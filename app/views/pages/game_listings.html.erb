@@ -1,4 +1,6 @@
 <%=
+("<h4>"+"Click on a game to replay it"+"</h4>").html_safe
+%><%=
 "<div name='easy'>Easy Games".html_safe
   %><%=
   "<ul>".html_safe
@@ -7,7 +9,7 @@
     %><%
     @stats[:easy][:human_wins].each do |win|
     %><%=
-      ("<div>"+win+"</div>").html_safe
+      ("<div>"+win[:board]+"</div>").html_safe
     %><%
     end
     %><%=
@@ -17,7 +19,7 @@
     %><%
     @stats[:easy][:cpu_wins].each do |win|
     %><%=
-      ("<div>"+win+"</div>").html_safe
+      ("<div>"+win[:board]+"</div>").html_safe
     %><%
     end
     %><%=
@@ -35,7 +37,7 @@
     %><%
     @stats[:medium][:human_wins].each do |win|
     %><%=
-      ("<div>"+win+"</div>").html_safe
+      ("<div>"+win[:board]+"</div>").html_safe
     %><%
     end
     %><%=
@@ -45,7 +47,7 @@
     %><%
     @stats[:medium][:cpu_wins].each do |win|
     %><%=
-      ("<div>"+win+"</div>").html_safe
+      ("<div>"+win[:board]+"</div>").html_safe
     %><%
     end
     %><%=
@@ -63,7 +65,7 @@
     %><%
     @stats[:unbeatable][:human_wins].each do |win|
     %><%=
-      ("<div>"+win+"</div>").html_safe
+      ("<div>"+win[:board]+"</div>").html_safe
     %><%
     end
     %><%=
@@ -73,7 +75,7 @@
     %><%
     @stats[:unbeatable][:cpu_wins].each do |win|
     %><%=
-      ("<div>"+win+"</div>").html_safe
+      ("<div>"+win[:board]+"</div>").html_safe
     %><%
     end
     %><%=
