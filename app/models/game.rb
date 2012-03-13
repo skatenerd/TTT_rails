@@ -142,9 +142,13 @@ class Game
 
   def self.detailed_stats_for_difficulty(difficulty)
     stats=Hash.new
-    stats[:cpu_wins]=player_wins(difficulty,:cpu).map{|record| Game.create_from_id(record.id).board_object.board_string}
-    stats[:human_wins]=player_wins(difficulty,:human).map{|record| Game.create_from_id(record.id).board_object.board_string}
+    stats[:cpu_wins]=get_winning_boards(difficulty,:cpu)
+    stats[:human_wins]=get_winning_boards(difficulty,:human)
     stats
+  end
+
+  def self.get_winning_boards(difficulty,player)
+    player_wins(difficulty,player).map{|record| Game.create_from_id(record.id).board_object.printable_string}
   end
   
 

@@ -18,6 +18,10 @@ class Board
       end}.join("")
   end
 
+  def printable_string
+    board_string.gsub(" ","_")
+  end
+
 
   def make_ttt_request(postdata,url)
     http=Net::HTTP.new("localhost",8080)

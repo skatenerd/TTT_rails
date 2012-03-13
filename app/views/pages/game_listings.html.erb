@@ -1,3 +1,85 @@
 <%=
-"does not care about airplay"
+"<div name='easy'>Easy Games".html_safe
+  %><%=
+  "<ul>".html_safe
+    %><%=
+    "<li><span class='human-win'>Human wins</span>".html_safe
+    %><%
+    @stats[:easy][:human_wins].each do |win|
+    %><%=
+      ("<div>"+win+"</div>").html_safe
+    %><%
+    end
+    %><%=
+    "</li>".html_safe
+    %><%=
+    "<li><span class='cpu-win'>Cpu Wins</span>".html_safe
+    %><%
+    @stats[:easy][:cpu_wins].each do |win|
+    %><%=
+      ("<div>"+win+"</div>").html_safe
+    %><%
+    end
+    %><%=
+    "</li>".html_safe
+    %><%=
+  "</ul>".html_safe
+  %><%=
+"</div>".html_safe
+%><%=
+"<div name='easy'>Medium Games".html_safe
+  %><%=
+  "<ul>".html_safe
+    %><%=
+    "<li><span class='human-win'>Human wins</span>".html_safe
+    %><%
+    @stats[:medium][:human_wins].each do |win|
+    %><%=
+      ("<div>"+win+"</div>").html_safe
+    %><%
+    end
+    %><%=
+    "</li>".html_safe
+    %><%=
+    "<li><span class='cpu-win'>Cpu Wins</span>".html_safe
+    %><%
+    @stats[:medium][:cpu_wins].each do |win|
+    %><%=
+      ("<div>"+win+"</div>").html_safe
+    %><%
+    end
+    %><%=
+    "</li>".html_safe
+    %><%=
+  "</ul>".html_safe
+  %><%=
+"</div>".html_safe
+%><%=
+"<div name='easy'>Unbeatable Games".html_safe
+  %><%=
+  "<ul>".html_safe
+    %><%=
+    "<li><span class='human-win'>Human wins</span>".html_safe
+    %><%
+    @stats[:unbeatable][:human_wins].each do |win|
+    %><%=
+      ("<div>"+win+"</div>").html_safe
+    %><%
+    end
+    %><%=
+    "</li>".html_safe
+    %><%=
+    "<li><span class='cpu-win'>Cpu Wins</span>".html_safe
+    %><%
+    @stats[:unbeatable][:cpu_wins].each do |win|
+    %><%=
+      ("<div>"+win+"</div>").html_safe
+    %><%
+    end
+    %><%=
+    "</li>".html_safe
+    %><%=
+  "</ul>".html_safe
+  %><%=
+"</div>".html_safe
 %>

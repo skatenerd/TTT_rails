@@ -35,6 +35,8 @@ class PagesController < ApplicationController
 
   def game_listings
     @stylesheets=extract_stylesheets(nil)
+    @stats=Game.detailed_stats
+    @title="Game Listings"
   end
 
   def menu
