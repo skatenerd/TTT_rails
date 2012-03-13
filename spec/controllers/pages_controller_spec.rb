@@ -24,7 +24,7 @@ describe PagesController do
     end
 
     it "should be successful" do
-      post('game_playback',{:game_id=>1,:move_index=>0})
+      post('game_playback',{:game_id=>1,:turn=>0})
       response.should be_success
     end
   end
