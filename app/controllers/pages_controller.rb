@@ -12,6 +12,7 @@ class PagesController < ApplicationController
     @board=game.board_vector
     @game_id=game.id
     @winner=game.board_object.get_winner()
+    @should_build_link=!(@winner.nil?)
     @stylesheets=extract_stylesheets("game")
     @title="Gametime"
     @stats=Game.stats
@@ -26,6 +27,7 @@ class PagesController < ApplicationController
     game=Game.create_new(extract_difficulty(difficulty_param),first_player)
 
     @board=game.board_vector
+    @should_build_link=false
     @game_id=game.id
     @stylesheets=extract_stylesheets("game")
     @title="Gametime"
