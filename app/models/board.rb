@@ -24,7 +24,7 @@ class Board
 
 
   def make_ttt_request(postdata,url)
-    http=Net::HTTP.new("localhost",8080)
+    http=Net::HTTP.new("deep-stone-3472.herokuapp.com")
     resp,respdata=http.post(url,postdata)
     respdata
   end
