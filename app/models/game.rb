@@ -52,6 +52,11 @@ class Game
   def add_move(row,col,player=current_player)
     move_count=move_records.count
     @game_record.move_records.create(:row=>row,:col=>col,:player=>player.to_s,:move_index=> move_count)
+    current_winner=winner()
+    if !current_winner.nil?
+      @game_record.winner=current_winner.to_s
+      @game_record.save
+    end
   end
 
   def can_step_forward(turn)
@@ -121,9 +126,12 @@ class Game
 
 
   def winning_player()
-    if winner==player_code(:human)
+    winner=@game_record.winner
+    if winner.nil?
+      nil
+    elsif winner.intern==player_code(:human)
       :human
-    elsif winner==player_code(:cpu)
+    elsif winner.intern==player_code(:cpu)
       :cpu
     end
   end
@@ -136,6 +144,7 @@ class Game
   def self.player_wins(difficulty,player)
     maxdepth=get_maxdepth(difficulty)
     GameRecord.all.find_all{|r|
+      puts "foo"
       game=Game.create_from_id(r.id)
       r.max_depth==maxdepth and game.winning_player==player}
   end

@@ -36,13 +36,33 @@ describe "basics" do
     game.move_records.all[1].move_index.should ==1
   end
 
+  it "a game that is not over has no winner" do
+    game_record=GameRecord.new()
+    game_record.save()
+    game=Game.create_from_id(game_record.id)
+    game.add_move(0,0)
+    game.add_move(1,1)
+    game_record.winner.should ==nil
+  end
+
+  it "a game's winner is indicated on the record" do
+    game_record=GameRecord.new()
+    game_record.save()
+    game=Game.create_from_id(game_record.id)
+    Board.any_instance.stub(:get_winner).and_return("x")
+    game.add_move(0,0)
+    GameRecord.find(game_record.id).winner.should =="x"
+    
+    
+
+  end
+
   it "adds a move on creation for cpu as first player" do
     game=Game.create_new(:easy,:cpu)
     game.move_records.count.should ==1
     game.move_records.all[0].player.should =="x"
     game.current_player.should ==:o
   end
-
 
   it "knows the current player" do
     game=Game.create_new(:easy,:human)
