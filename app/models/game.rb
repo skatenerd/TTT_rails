@@ -54,8 +54,7 @@ class Game
     @game_record.move_records.create(:row=>row,:col=>col,:player=>player.to_s,:move_index=> move_count)
     current_winner=winner()
     if !current_winner.nil?
-      @game_record.winner=current_winner.to_s
-      @game_record.save
+      @game_record.update_attribute(:winner,current_winner.to_s)
     end
   end
 
@@ -144,7 +143,6 @@ class Game
   def self.player_wins(difficulty,player)
     maxdepth=get_maxdepth(difficulty)
     GameRecord.all.find_all{|r|
-      puts "foo"
       game=Game.create_from_id(r.id)
       r.max_depth==maxdepth and game.winning_player==player}
   end
