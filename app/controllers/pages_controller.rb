@@ -28,6 +28,7 @@ class PagesController < ApplicationController
     @game_id=game.id
     @board=game.board_vector_at_turn(turn)
     @turn=turn
+    @first_player=game.first_player
     @title="Game Playback"
     @stylesheets=extract_stylesheets("game")
     @can_step_forward=game.can_step_forward(turn)
