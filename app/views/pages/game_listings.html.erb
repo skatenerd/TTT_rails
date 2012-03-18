@@ -25,6 +25,16 @@
     %><%=
     "</li>".html_safe
     %><%=
+    "<li><span>Ties</span>".html_safe
+    %><%
+    @stats[:easy][:ties].each do |win|
+    %><%=
+      ("<div>"+build_playback_link(win)+"</div>").html_safe
+    %><%
+    end
+    %><%=
+    "</li>".html_safe
+    %><%=
   "</ul>".html_safe
   %><%=
 "</div>".html_safe
@@ -53,6 +63,16 @@
     %><%=
     "</li>".html_safe
     %><%=
+    "<li><span>Ties</span>".html_safe
+    %><%
+    @stats[:medium][:ties].each do |win|
+    %><%=
+      ("<div>"+build_playback_link(win)+"</div>").html_safe
+    %><%
+    end
+    %><%=
+    "</li>".html_safe
+    %><%=
   "</ul>".html_safe
   %><%=
 "</div>".html_safe
@@ -74,6 +94,16 @@
     "<li><span class='cpu-win'>Cpu Wins</span>".html_safe
     %><%
     @stats[:unbeatable][:cpu_wins].each do |win|
+    %><%=
+      ("<div>"+build_playback_link(win)+"</div>").html_safe
+    %><%
+    end
+    %><%=
+    "</li>".html_safe
+    %><%=
+    "<li><span>Ties</span>".html_safe
+    %><%
+    @stats[:unbeatable][:ties].each do |win|
     %><%=
       ("<div>"+build_playback_link(win)+"</div>").html_safe
     %><%

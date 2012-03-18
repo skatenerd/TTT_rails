@@ -11,6 +11,8 @@
     %><%=
     ("<li class='cpu-win'>  CPU Wins: "+stats[:easy][:cpu_wins].to_s+"</li>").html_safe
     %><%=
+    ("<li class='tie'>  Ties: "+stats[:easy][:tie_count].to_s+"</li>").html_safe
+    %><%=
     "</ul>".html_safe
   %><%=
   "</div>".html_safe
@@ -23,6 +25,8 @@
     %><%=
     ("<li class='cpu-win'>  CPU Wins: "+stats[:medium][:cpu_wins].to_s+"</li>").html_safe
     %><%=
+    ("<li class='tie'>  Ties: "+stats[:medium][:tie_count].to_s+"</li>").html_safe
+    %><%=
     "</ul>".html_safe
   %><%=
   "</div>".html_safe
@@ -34,6 +38,8 @@
     ("<li class='human-win'>Human Wins: "+stats[:unbeatable][:human_wins].to_s+"</li>").html_safe
     %><%=
     ("<li class='cpu-win'>  CPU Wins: "+stats[:unbeatable][:cpu_wins].to_s+"</li>").html_safe
+    %><%=
+    ("<li class='tie'>  Ties: "+stats[:unbeatable][:tie_count].to_s+"</li>").html_safe
     %><%=
     "</ul>".html_safe
   %><%=
