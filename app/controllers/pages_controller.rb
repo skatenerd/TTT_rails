@@ -11,8 +11,8 @@ class PagesController < ApplicationController
 
     @board=game.board_vector
     @game_id=game.id
-    @winner=game.board_object.get_winner()
-    @should_build_link=!(@winner.nil?)
+    @outcome=game.board_object.get_outcome()
+    @should_build_link=!(@outcome.nil?)
     @stylesheets=extract_stylesheets("game")
     @title="Gametime"
     @stats=Game.stats

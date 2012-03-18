@@ -33,9 +33,6 @@ class Game
     @game_record.move_records
   end
 
-  def sorted_move_records
-    move_records.find(:all,:order=>"move_index ASC")
-  end
 
   def id
     @game_record.id
@@ -50,11 +47,10 @@ class Game
   end
 
   def add_move(row,col,player=current_player)
-    move_count=move_records.count
-    @game_record.move_records.create(:row=>row,:col=>col,:player=>player.to_s,:move_index=> move_count)
-    current_winner=winner()
-    if !current_winner.nil?
-      @game_record.update_attribute(:winner,current_winner.to_s)
+    @game_record.add_move(row,col,player)
+    current_outcome=outcome()
+    if !current_outcome.nil?
+      @game_record.set_outcome(current_outcome)
     end
   end
 
@@ -68,7 +64,7 @@ class Game
 
 
   def current_player()
-    last_move=sorted_move_records.last
+    last_move=@game_record.sorted_move_records.last
     if last_move
       Game.other_player(last_move.player.intern)
     else
@@ -90,7 +86,7 @@ class Game
 
   def board_object_at_turn(turn=nil)
     board=Board.new()
-    moves=sorted_move_records
+    moves=@game_record.sorted_move_records
     if turn
       moves=moves[0,turn]
     end
@@ -108,10 +104,10 @@ class Game
     board_object.board_vector
   end
 
-  def winner()
-    winner=board_object.get_winner
-    if winner
-      winner.intern
+  def outcome()
+    outcome=board_object.get_outcome
+    if outcome
+      outcome.intern
     end
   end
 
@@ -125,13 +121,15 @@ class Game
 
 
   def winning_player()
-    winner=@game_record.winner
-    if winner.nil?
+    outcome=@game_record.winner
+    if outcome.nil?
       nil
-    elsif winner.intern==player_code(:human)
+    elsif outcome.intern==player_code(:human)
       :human
-    elsif winner.intern==player_code(:cpu)
+    elsif outcome.intern==player_code(:cpu)
       :cpu
+    else
+      :tie
     end
   end
 
@@ -167,7 +165,7 @@ class Game
     stats=Hash.new
     stats[:cpu_wins]=player_win_count(difficulty,:cpu)
     stats[:human_wins]=player_win_count(difficulty,:human)
-    stats[:tie_count]=player_win_count(difficulty,nil)
+    stats[:tie_count]=player_win_count(difficulty,:tie)
     stats
   end
 
@@ -175,6 +173,7 @@ class Game
     stats=Hash.new
     stats[:cpu_wins]=get_winning_boards(difficulty,:cpu)
     stats[:human_wins]=get_winning_boards(difficulty,:human)
+    stats[:ties]=get_winning_boards(difficulty,:tie)
     stats
   end
 

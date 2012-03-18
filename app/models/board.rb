@@ -47,7 +47,7 @@ class Board
     board_string.gsub(" ","").length==9
   end
 
-  def get_winner()
+  def get_outcome()
     winner=nil
     postdata=("board="+board_string).downcase
     respdata=make_ttt_request(postdata,"/ttt/winner")

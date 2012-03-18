@@ -30,15 +30,15 @@ describe "basics" do
   it "gets the winner" do
     won_board=Board.new()
     won_board.board_vector=[[:x,:o,:o],[nil,:x,nil],[nil,nil,:x]]
-    won_board.get_winner().should =="x"
+    won_board.get_outcome().should =="x"
 
     in_progress_board=Board.new()
     in_progress_board.board_vector=[[:x,:o,:o],[nil,:x,nil],[nil,nil,nil]]
-    in_progress_board.get_winner.should ==nil
+    in_progress_board.get_outcome.should ==nil
 
     tie_board=Board.new()
     tie_board.board_vector=[[:x,:o,:o],[:o,:x,:x],[:x,:o,:o]]
-    tie_board.get_winner.should =="TIE"
+    tie_board.get_outcome.should =="TIE"
 
   end
 

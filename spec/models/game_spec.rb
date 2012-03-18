@@ -49,7 +49,7 @@ describe "basics" do
     game_record=GameRecord.new()
     game_record.save()
     game=Game.create_from_id(game_record.id)
-    Board.any_instance.stub(:get_winner).and_return("x")
+    Board.any_instance.stub(:get_outcome).and_return("x")
     game.add_move(0,0)
     GameRecord.find(game_record.id).winner.should =="x"
     
@@ -135,7 +135,7 @@ describe "basics" do
     cpu_win_unbeatable_game.add_move(0,1,:o)
     cpu_win_unbeatable_game.add_move(0,2,:o)
 
-    Game.stats[:easy][:tie_count].should ==1
+    Game.stats[:easy][:tie_count].should ==0
     Game.stats[:easy][:human_wins].should ==1
     Game.stats[:easy][:cpu_wins].should ==0
 

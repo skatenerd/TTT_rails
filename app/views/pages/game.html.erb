@@ -5,9 +5,9 @@ render :partial => "board", :object => @board, :locals=>{:game_id =>@game_id,:sh
 %>
 </div>
 <%
-if @winner
+if @outcome
 %><%=
-render :partial => "winner", :object => @winner
+render :partial => "outcome", :object => @outcome
 %><%=
 render :partial => "stats", :object => @stats
 %><%
