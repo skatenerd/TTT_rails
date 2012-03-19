@@ -35,7 +35,7 @@
       %><%=
       ("<li>"+link_to("Human First", new_game_path(:difficulty=>:unbeatable,:first_player=>:human))).html_safe
       %><%=
-      ("<li>"+link_to("CPU First", new_game_path(:difficulty=>:easy,:unbeatable=>:cpu))).html_safe
+      ("<li>"+link_to("CPU First", new_game_path(:difficulty=>:unbeatable,:first_player=>:cpu))).html_safe
       %><%=
       "</ul>".html_safe
       %><%=
